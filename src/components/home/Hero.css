@@ -1,0 +1,112 @@
+.background--image1{
+    background-image:url(../../assets/mobilya.jpg);
+    min-height: 100vh;
+}
+
+.background--image2{
+    background-image:url("https://www.berkemobilya.com.tr/media/catalog/product/cache/1/image/2000x1120/8cda07290adf5b61edee0d4066c5caef/m/r/mrr_2_.jpg");
+    min-height: 80vh;
+}
+.background--image3{
+    background-image:url("https://imageresizer.furnituredealer.net/img/remote/images.furnituredealer.net/b/p/a1e18853-5f6b-4575-b42b-6c376b416583/assets/ffa2e1cf167e488aa0f0d68154a15428.jpg?width=1248&height=1248&scale=both&trim.threshold=20&trim.percentpadding=0.5");
+    min-height: 80vh;
+}
+
+
+
+.background--image1,
+.background--image2,
+.background--image3,
+.background--image4{
+    position: relative;
+    opacity: 0.7;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.heading-container{
+    position: absolute;
+    top:50%;
+    width:100%;
+    text-align:center;
+    color: black;
+    font-size:3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5rem;
+}
+
+.heading-container__heading{
+    background-color: black;
+    color: white;
+    padding:2rem;
+    border-top-left-radius: 2rem;
+    border-bottom-right-radius:2rem;
+    outline: 0.5rem inset purple;
+    outline-offset: 1rem;
+    line-height: 5rem;
+}
+
+.heading-container__logo{
+    width:30%;
+    opacity: 1;
+}
+
+.heading-container__text{
+    background-color: black;
+    color: white;
+    padding:0.7rem;
+    line-height: 4rem;
+    border-radius: 0.7rem 0 0.7rem 0;
+    outline:0.4rem inset purple;
+    outline-offset: 0.2rem;
+    text-transform: capitalize;
+}
+
+.section{
+    text-align:center;
+    padding:3rem 5rem;
+}
+
+.section--dark{
+    background-color: #282e34;
+    color: rgb(218, 216, 216);
+}
+
+.section--light{
+    background-color: rgb(241,241,241);
+    color: #666;
+}
+
+@media(max-width:760px){
+    .heading-container{
+        font-size:1.5rem;
+        letter-spacing: 0.5rem;
+    }
+
+    .heading-container__heading{
+        padding:0.8rem;
+        border-radius: 1rem 0 1 rem 0;
+        outline: 0.4rem inset purple;
+        outline-offset: 0.3rem;
+        line-height: 5rem;
+    }
+
+    .heading-container__text{
+    
+     padding:0.7rem;
+    line-height: 4rem;
+    border-radius: 0.3rem 0 0.3rem 0;
+    outline:0.4rem inset purple;
+    outline-offset: 0.2rem;
+    }
+    .heading-container__logo{
+        width:50%;
+        
+    }
+   
+    .section{
+        padding: 1.5rem 2rem;
+    }
+}
