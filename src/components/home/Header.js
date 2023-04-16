@@ -19,10 +19,10 @@ const Header = () => {
         <Navbar.Toggle  aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse  id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link style={{ color: "white" }} href="#features">
+            <Nav.Link style={{ color: "white" }} href="/register">
               Register
             </Nav.Link>
-            <Nav.Link style={{ color: "white" }} href="#pricing">
+            <Nav.Link style={{ color: "white" }} href="/login">
               Login
             </Nav.Link>
           </Nav>
