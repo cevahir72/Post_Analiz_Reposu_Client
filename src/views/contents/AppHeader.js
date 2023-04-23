@@ -3,7 +3,15 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
+
+
 const AppHeader = () => {
+
+//handles
+//buraya logout fonksiyonu gelecek
+
+
+
   return (
     <Navbar
     collapseOnSelect
@@ -12,7 +20,7 @@ const AppHeader = () => {
     variant="dark"
   >
     <Container>
-      <Navbar.Brand  style={{ color: "white" }} href="#home">
+      <Navbar.Brand  style={{ color: "white" }} href="/">
         <b>Furni-Scope</b> 
       </Navbar.Brand>
       <Navbar.Toggle  aria-controls="responsive-navbar-nav" />
@@ -24,11 +32,14 @@ const AppHeader = () => {
           <Nav.Link style={{ color: "white" }} href="/financing">
             Financing
           </Nav.Link>
-          <Nav.Link style={{ color: "white" }} href="/login">
+          <Nav.Link style={{ color: "white" }} href="/product">
             Product
           </Nav.Link>
           <Nav.Link style={{ color: "white" }} href="/analyze">
             Analyze
+          </Nav.Link>
+          <Nav.Link style={{ color: "white" }} href="/profile">
+            Profile
           </Nav.Link>
           {/* <Nav.Link style={{ color: "white" }} href="/admin">
             Admin
