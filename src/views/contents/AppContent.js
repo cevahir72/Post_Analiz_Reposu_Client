@@ -6,6 +6,7 @@ import Product from "../../components/Product";
 import Analyze from "../../components/Analyze";
 import Profile from "../../components/Profile";
 import Customer from "../../components/Customer";
+import Post from "../../components/Post";
 
 const AppContent = () => {
 
@@ -23,11 +24,10 @@ const AppContent = () => {
     return <Profile/>
   }else if (location.split("/")[1] === "customer"){
     return <Customer/>
+  }else if (location.split("/")[1] === "post"){
+    return <Post/>
   }
     
-  return (
-    <div>AppContent</div>
-  )
 }
 
 export default AppContent

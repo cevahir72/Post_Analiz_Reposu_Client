@@ -10,7 +10,8 @@ export const successNote = msg =>
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'dark'
+    theme: 'light',
+    closeButton: false,
   });
 
 export const errorNote = msg =>
@@ -22,5 +23,6 @@ export const errorNote = msg =>
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'dark'
+    theme: 'light',
+    closeButton: false,
   });

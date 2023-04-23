@@ -57,7 +57,7 @@ function App() {
             />
             <Route
               path="*"
-              name="Home"
+              name="Default"
               element={
                 
                   <DefaultLayout />

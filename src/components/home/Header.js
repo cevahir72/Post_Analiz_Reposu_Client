@@ -13,7 +13,7 @@ const Header = () => {
       variant="dark"
     >
       <Container>
-        <Navbar.Brand  style={{ color: "white" }} href="#home">
+        <Navbar.Brand  style={{ color: "white" }} href="/">
           <b>Furni-Scope</b> 
         </Navbar.Brand>
         <Navbar.Toggle  aria-controls="responsive-navbar-nav" />
