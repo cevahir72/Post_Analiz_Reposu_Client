@@ -118,7 +118,7 @@ const Post = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div className='mb-3'>
       <button type="submit" className="btn btn-warning" onClick={handleShow}  style={{background: "#CD9B4F", color: "white" }}>
       <i class="fa-solid fa-plus"></i> Add Post</button>
       </div>
