@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import copy from 'copy-to-clipboard';
+import {successNote} from "../utils/ToastNotify";
 
 
 const mockCustomer = [
@@ -16,6 +18,12 @@ const Customer = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+   //handles
+   const handleCopyClick = (text) => {
+    copy(text)
+    successNote(`Copied`);
+  };
 
   return (
     <div
@@ -52,8 +60,9 @@ const Customer = () => {
                         type="submit"
                         className="btn btn-warning"
                         style={{ background: "#CD9B4F", color: "white" }}
+                        onClick={()=> handleCopyClick(item.answer)}
                       >
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-regular fa-copy"></i> copy
                       </button>
                     </div>
                   </div>

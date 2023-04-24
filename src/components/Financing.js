@@ -1,6 +1,5 @@
 import React from 'react';
-import { Card, Row, Button } from 'react-bootstrap';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import copy from 'copy-to-clipboard';
 import {successNote} from "../utils/ToastNotify";
 
 //Variables
@@ -47,37 +46,66 @@ let financeList = [
 
 const Financing = () => {
 
+
   //handles
   const handleCopyClick = (text) => {
-    successNote(`Copied: ${text}`);
+    copy(text)
+    successNote(`Copied`);
   };
 
 
   return (
-    <Row className='px-4 '  xs={1} md={2} lg={4}>
-      {financeList.map(card => (
-        <div className="mb-4 col-12 col-md-6 col-lg-3 px-2">
-            <Card >
-          <Card.Header>{card.title}</Card.Header>
-          <Card.Img variant="top" src={card.image} style={{height: "500px"}}/>
-          <Card.Body>
-            <Card.Text style={{ height: '100px', overflowY: 'auto' }}>{card.desc}</Card.Text>
-            <div className='w-100 w-sm-25'>
-            <CopyToClipboard text={card.text}>
-              <Button variant="primary"
-                      onClick={() => handleCopyClick(card.title)}
+    <div
+    className="container justify-content-center "
+    style={{ minHeight: "87vh" }}
+  >
+    <div className="row mt-4">
+      <div className="row d-flex justify-content-center align-items-center h-100">
+        <div className="col">
+          <div className="card">
+            <div className="card-body p-5">
+              {financeList.map((item) => (
+                <div
+                  class="row my-2 py-2 d-flex align-items-center "
+                  style={{
+                    border: "1px solid #ddd",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <div class="col-sm-6 col-md-2 col-lg-1">
+                    <img
+                      className="img-fluid"
                       style={{
-                        backgroundColor: "#CD9B4F",
-                        width:"100%"
-                      }}>Copy</Button>
-            </CopyToClipboard>
+                        borderRadius: "5px",
+                      }}
+                      src={item.image}
+                      alt={item.title}
+                    />
+                  </div>
+                  <div class="col-sm-12 col-md-3 col-lg-3">
+                    <strong>{item.title}</strong>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-6">
+                    <p>{item.desc}</p>
+                  </div>
+                  <div class="col-sm-3 d-flex justify-content-end  col-md-12 col-lg-12">
+                    <button
+                      type="submit"
+                      className="btn btn-warning"
+                      style={{ background: "#CD9B4F", color: "white" }}
+                      onClick={()=> handleCopyClick(item.desc)}
+                    >
+                      <i class="fa-regular fa-copy"></i> copy
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          </Card.Body>
-        </Card>
+          </div>
         </div>
-        
-      ))}
-    </Row>
+      </div>
+    </div>
+  </div>
   )
 }
 
