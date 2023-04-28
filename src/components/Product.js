@@ -54,6 +54,11 @@ const Product = () => {
     successNote(`Copied`);
   };
 
+  const handleSave = ()=> {
+    //redux ta fonk kurulacak 
+    console.log("handle-save--product")
+}
+
 
   return (
     <div
@@ -101,7 +106,7 @@ const Product = () => {
           <i class="fa-solid fa-plus"></i> Add Product
         </button>
       </div>
-      
+
       <div className="row mt-4">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col">
@@ -109,7 +114,7 @@ const Product = () => {
               <div className="card-body p-5">
                 {mockProduct.map((item) => (
                   <div
-                    class="row my-2 py-2 d-flex align-items-center "
+                    class="row my-3 py-2 d-flex align-items-center "
                     style={{
                       border: "1px solid #ddd",
                       borderRadius: "5px",
@@ -142,7 +147,7 @@ const Product = () => {
                         type="submit"
                         className="btn btn-warning"
                         style={{ background: "#CD9B4F", color: "white" }}
-                        onClick={()=> handleCopyClick(item.dimensions)}
+                        onClick={() => handleCopyClick(item.dimensions)}
                       >
                         <i class="fa-regular fa-copy"></i> copy
                       </button>
@@ -164,7 +169,99 @@ const Product = () => {
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>Add Product</Offcanvas.Title>
           </Offcanvas.Header>
-          <Offcanvas.Body>Buraya Form Gelecek</Offcanvas.Body>
+          <Offcanvas.Body>
+            <div class="input-group mb-3">
+              <span
+                style={{ width: "110px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                Title
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                style={{ width: "110px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                Dimensions
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                style={{ width: "110px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                Price
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                style={{ width: "110px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                Photo-Url
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Photo"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group mb-3">
+            <span
+                style={{ width: "110px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                Type
+              </span>
+              <select class="form-select" aria-label="Default select example">
+                <option selected value="sofa">Sofa</option>
+                <option value="bed">Bed</option>
+                <option value="dining">Dining</option>
+                <option value="accessesories">Accessesories</option>
+              </select>
+            </div>
+            <hr />
+            <div style={{ display: "flex", justifyContent: "end" }}>
+              <button className="btn btn-outline-danger">Cancel</button>
+              <button
+                type="submit"
+                className="btn btn-warning"
+                style={{
+                  background: "#CD9B4F",
+                  color: "white",
+                  marginLeft: "10px",
+                }}
+                onClick={() => handleSave}
+              >
+                Save
+              </button>
+            </div>
+          </Offcanvas.Body>
         </Offcanvas>
       )}
     </div>

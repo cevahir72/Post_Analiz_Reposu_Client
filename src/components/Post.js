@@ -81,6 +81,13 @@ const Post = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+
+  //handles
+  const handleSave = ()=> {
+    //redux ta fonk kurulacak
+    console.log("handle-save--product")
+}
+
   const customStyles = {
     rows: {
       style: {
@@ -98,7 +105,10 @@ const Post = () => {
   }
  
   return (
-    <div className="container justify-content-center " style={{height:"87vh"}}>
+    <div
+      className="container justify-content-center "
+      style={{ height: "87vh" }}
+    >
       <div className="row mb-3">
         <div className=" col-md-8 ">
           <div className="input-group mb-3">
@@ -108,46 +118,165 @@ const Post = () => {
               placeholder="Search post...."
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
-              style={{height:"48px",border:"1px solid #CD9B4F" ,"&:focus": {boxShadow:"0px 0px 0px", borderColor:"#f8c146", outline:"0px"}}}
+              style={{
+                height: "48px",
+                border: "1px solid #CD9B4F",
+                "&:focus": {
+                  boxShadow: "0px 0px 0px",
+                  borderColor: "#f8c146",
+                  outline: "0px",
+                },
+              }}
             />
             <div className="input-group-append">
-              <button className="btn btn-outline-warning btn-lg" type="button" style={{borderRadius:"0px", "&:hover": {color:"white"}}}>
+              <button
+                className="btn btn-outline-warning btn-lg"
+                type="button"
+                style={{ borderRadius: "0px", "&:hover": { color: "white" } }}
+              >
                 <i className="fa fa-search"></i>
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div className='mb-3'>
-      <button type="submit" className="btn btn-warning" onClick={handleShow}  style={{background: "#CD9B4F", color: "white" }}>
-      <i class="fa-solid fa-plus"></i> Add Post</button>
+      <div className="mb-3">
+        <button
+          type="submit"
+          className="btn btn-warning"
+          onClick={handleShow}
+          style={{ background: "#CD9B4F", color: "white" }}
+        >
+          <i class="fa-solid fa-plus"></i> Add Post
+        </button>
       </div>
       <div className="row table-responsive">
-      <DataTable
-            title="Post List"
-            columns={columns}
-            data={mockPost}
-            pagination
-            striped
-            responsive
-            customStyles={customStyles}
+        <DataTable
+          title="Post List"
+          columns={columns}
+          data={mockPost}
+          pagination
+          striped
+          responsive
+          customStyles={customStyles}
         />
-
       </div>
-      {
-        show && (
-          <Offcanvas show={show} onHide={handleClose} placement='end'
-           style={{width:"750px"}}>
+      {show && (
+        <Offcanvas
+          show={show}
+          onHide={handleClose}
+          placement="end"
+          style={{ width: "750px" }}
+        >
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>Add Post</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            Buraya Form Gelecek
+            <div class="input-group mb-3">
+            <span
+                style={{ width: "90px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                User
+              </span>
+              <select class="form-select" aria-label="Default select example">
+                <option selected value="1">Mevlüt</option>
+                <option value="2">Betül</option>
+                <option value="3">Rabia</option>
+                <option value="4">Melek</option>
+              </select>
+            </div>
+            <div class="input-group mb-3">
+              <span
+                style={{ width: "90px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                Date
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                style={{ width: "90px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                Location
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                style={{ width: "90px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                Count
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                style={{ width: "90px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                C. Returns
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Sale
+              </label>
+            </div>
+            <hr />
+            <div style={{ display: "flex", justifyContent: "end" }}>
+              <button className="btn btn-outline-danger">Cancel</button>
+              <button
+                type="submit"
+                className="btn btn-warning"
+                style={{
+                  background: "#CD9B4F",
+                  color: "white",
+                  marginLeft: "10px",
+                }}
+                onClick={() => handleSave}
+              >
+                Save
+              </button>
+            </div>
           </Offcanvas.Body>
-        </Offcanvas> 
-        )
-      }
-        
+        </Offcanvas>
+      )}
     </div>
   );
 };
