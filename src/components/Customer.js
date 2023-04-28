@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import copy from 'copy-to-clipboard';
+import {successNote} from "../utils/ToastNotify";
 
 
 const mockCustomer = [
@@ -7,7 +9,12 @@ const mockCustomer = [
     id:1,
     question: "Pazarlık",
     answer: "I have no authorization to negotiate. But if you share your number, i can direct it to my manager."
-  }
+  },
+  {
+    id:2,
+    question: "Adres",
+    answer: "2235 North Tustin 92705 Santa Ana - CA - phone: 844 955 3399 - Monday to Thursday 10 am- 6 pm / Friday-Saturday 10 am - 7 pm / Sunday 12 pm -5 pm."
+  },
 ]
 
 const Customer = () => {
@@ -16,6 +23,17 @@ const Customer = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+   //handles
+   const handleCopyClick = (text) => {
+    copy(text)
+    successNote(`Copied`);
+  };
+
+  const handleSave = ()=> {
+      //redux ta 
+      console.log("handle-save--customer")
+  }
 
   return (
     <div
@@ -45,15 +63,16 @@ const Customer = () => {
                       borderRadius: "5px",
                     }}
                   >
-                      <strong>{item.question}</strong>
-                      <p>{item.answer}</p>
-                      <div class="col-sm-12 d-flex justify-content-end  col-md-12 col-lg-12">
+                    <strong style={{marginBottom:"0.5rem"}}>{item.question}</strong>
+                    <p>{item.answer}</p>
+                    <div class="col-sm-12 d-flex justify-content-end  col-md-12 col-lg-12">
                       <button
                         type="submit"
                         className="btn btn-warning"
                         style={{ background: "#CD9B4F", color: "white" }}
+                        onClick={() => handleCopyClick(item.answer)}
                       >
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-regular fa-copy"></i> copy
                       </button>
                     </div>
                   </div>
@@ -73,11 +92,42 @@ const Customer = () => {
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>Add Customer Answer</Offcanvas.Title>
           </Offcanvas.Header>
-          <Offcanvas.Body>Buraya Form Gelecek</Offcanvas.Body>
+          <Offcanvas.Body>
+            <div class="input-group mb-3">
+              <span style={{width:"90px"}} class="input-group-text" id="basic-addon1">
+              Question
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group">
+              <span style={{width:"90px"}} class="input-group-text">Answer</span>
+              <textarea
+                class="form-control"
+                aria-label="With textarea"
+              ></textarea>
+            </div>
+            <hr />
+            <div style={{display:"flex", justifyContent:"end"}}>
+              <button className="btn btn-outline-danger">Cancel</button>
+              <button
+                type="submit"
+                className="btn btn-warning"
+                style={{ background: "#CD9B4F", color: "white",marginLeft:"10px" }}
+                onClick={()=> handleSave}
+              >
+                Save
+              </button>
+            </div>
+          </Offcanvas.Body>
         </Offcanvas>
       )}
     </div>
-  )
+  );
 }
 
 export default Customer
