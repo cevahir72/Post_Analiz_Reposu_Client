@@ -113,7 +113,7 @@ const Customer = () => {
             </div>
             <hr />
             <div style={{display:"flex", justifyContent:"end"}}>
-              <button className="btn btn-outline-danger">Cancel</button>
+              <button onClick={handleClose} className="btn btn-outline-danger">Cancel</button>
               <button
                 type="submit"
                 className="btn btn-warning"
