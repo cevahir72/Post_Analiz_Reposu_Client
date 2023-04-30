@@ -56,8 +56,11 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
-  },
-  extraReducers: {
+    onChangeRegister : (state,action)=>{
+      // state.user = {...state.user, [action.payload.name]: action.payload.value}
+      console.log(action.payload )
+    },
+   extraReducers: {
     [Register.pending]: (state, action) => {
       state.loading = true;
     },
@@ -66,12 +69,23 @@ const authSlice = createSlice({
     },
     [Register.fulfilled]: (state, action) => {
       state.loading = false;
-      localStorage.setItem("user", action.payload)
-      state.user = action.payload
     },
-  },
+    [Login.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [Login.rejected]: (state, action) => {
+      state.loading = true;
+      errorNote("Email veya şifre yanlış!")
+    },
+    [Login.fulfilled]: (state, action) => {
+      state.loading = false;
+      localStorage.setItem("user", action.payload);
+      state.user = action.payload;
+    },
+  }
+}
 });
 
-export const { clearAuth, setUser } = authSlice.actions;
+export const { clearAuth, setUser,onChangeRegister } = authSlice.actions;
 
 export default authSlice.reducer;

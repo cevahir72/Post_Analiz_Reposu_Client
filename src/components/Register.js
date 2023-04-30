@@ -1,6 +1,20 @@
-import React from 'react'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux'; 
+import {onChangeRegister} from "../services/authSlice"
 
 const Register = () => {
+  const dispatch = useDispatch()
+
+  const {user} = useSelector((state)=>state.auth)
+
+const onChange = (value)=> {
+  dispatch(onChangeRegister(value))
+}
+
+
+  
+
+
   return (
     <section class="vh-100" >
   <div class="container h-100">
@@ -18,37 +32,37 @@ const Register = () => {
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="text" id="form3Example1c" class="form-control" />
-                      <label class="form-label" for="form3Example1c">Your Name</label>
+                      <input  onChange={(e)=> onChange(e)} name="name" type="text" id="form3Example1c" class="form-control" />
+                      <label class="form-label" htmlFor="form3Example1c">Your Name</label>
                     </div>
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="form3Example3c" class="form-control" />
-                      <label class="form-label" for="form3Example3c">Your Email</label>
+                      <input onChange={(e)=> onChange(e)} name="email" type="email" id="form3Example3c" class="form-control" />
+                      <label class="form-label" htmlFor="form3Example3c">Your Email</label>
                     </div>
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="password" id="form3Example4c" class="form-control" />
-                      <label class="form-label" for="form3Example4c">Password</label>
+                      <input onChange={(e)=> onChange(e)} name="password" type="password" id="form3Example4c" class="form-control" />
+                      <label class="form-label" htmlFor="form3Example4c">Password</label>
                     </div>
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="password" id="form3Example4cd" class="form-control" />
-                      <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                      <input onChange={(e)=> onChange(e)} name="password2" type="password" id="form3Example4cd" class="form-control" />
+                      <label class="form-label" htmlFor="form3Example4cd">Repeat your password</label>
                     </div>
                   </div>
 
                   <div class="form-check d-flex justify-content-center mb-5">
-                    <label class="form-check-label" for="form2Example3">
+                    <label class="form-check-label" htmlFor="form2Example3">
                       Have an account ? <a href="/login">Login</a>
                     </label>
                   </div>
