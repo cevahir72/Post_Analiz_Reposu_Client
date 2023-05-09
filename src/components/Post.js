@@ -7,6 +7,7 @@ const mockPost = [
     id:1,
     date:"28/01/2023",
     location:"Santa Ana",
+    zip:"92705",
     user: "Mevlüt",
     count: 30,
     customerReturns: 3,
@@ -16,6 +17,7 @@ const mockPost = [
     id:2,
     date:"11/02/2023",
     location:"Los Angeles",
+    zip:"90255",
     user: "Betül",
     count: 20,
     customerReturns: 5,
@@ -25,6 +27,7 @@ const mockPost = [
     id:3,
     date:"14/02/2023",
     location:"San Diego",
+    zip:"92101",
     user: "Rabia",
     count: 10,
     customerReturns: 2,
@@ -34,6 +37,7 @@ const mockPost = [
     id:4,
     date:"18/02/2023",
     location:"Riverside",
+    zip:"92501",
     user: "Melek",
     count: 40,
     customerReturns: 4,
@@ -50,6 +54,11 @@ const columns = [
   {
       name: 'Location',
       selector: row => row.location,
+      
+  },
+  {
+      name: 'Zip',
+      selector: row => row.zip,
       
   },
   {
@@ -85,7 +94,7 @@ const Post = () => {
   //handles
   const handleSave = ()=> {
     //redux ta fonk kurulacak
-    console.log("handle-save--product")
+    console.log("handle-save--post")
 }
 
   const customStyles = {
@@ -209,6 +218,21 @@ const Post = () => {
                 id="basic-addon1"
               >
                 Location
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                style={{ width: "90px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                Zip
               </span>
               <input
                 type="text"

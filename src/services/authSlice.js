@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { errorNote, successNote } from '../utils/ToastNotify';
 import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 
-
 const initialState = {
     user:{},
     loading: false
@@ -57,8 +56,8 @@ const authSlice = createSlice({
       state.user = action.payload;
     },
     onChangeRegister : (state,action)=>{
-      // state.user = {...state.user, [action.payload.name]: action.payload.value}
-      console.log(action.payload )
+      state.user = {...state.user, [action.payload.name]: action.payload.value}
+      console.log(state.user)
     },
    extraReducers: {
     [Register.pending]: (state, action) => {
