@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import copy from 'copy-to-clipboard';
 import {successNote} from "../utils/ToastNotify";
+import { useDispatch } from "react-redux";
+import {addProduct,clearProducts, getProducts} from "../services/authSlice";
 
 const mockProduct = [
   {
@@ -44,6 +46,10 @@ const mockProduct = [
 
 const Product = () => {
   const [show, setShow] = useState(false);
+  const [product, setProduct] = useState({})
+
+  //redux
+  const dispatch = useDispatch()
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -55,9 +61,21 @@ const Product = () => {
   };
 
   const handleSave = ()=> {
-    //redux ta fonk kurulacak 
-    console.log("handle-save--product")
+    dispatch(addProduct(product));
 }
+
+  const onChange = (e)=> {
+      setProduct({...product,[e.target.name]: e.target.value})
+  }
+ 
+  //Effects
+  useEffect(() => {
+      dispatch(getProducts())
+    return () => {
+      dispatch(clearProducts())
+    }
+  }, [])
+  
 
 
   return (
@@ -180,6 +198,9 @@ const Product = () => {
               </span>
               <input
                 type="text"
+                name="title"
+                onChange={(e)=> onChange(e)}
+                value={product.title ? product.title : "" }
                 class="form-control"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
@@ -195,6 +216,9 @@ const Product = () => {
               </span>
               <input
                 type="text"
+                name="dimensions"
+                onChange={(e)=> onChange(e)}
+                value={product.dimensions ? product.dimensions : "" }
                 class="form-control"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
@@ -210,6 +234,9 @@ const Product = () => {
               </span>
               <input
                 type="text"
+                name="price"
+                onChange={(e)=> onChange(e)}
+                value={product.price ? product.price : "" }
                 class="form-control"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
@@ -225,6 +252,9 @@ const Product = () => {
               </span>
               <input
                 type="text"
+                name="photoUrl"
+                onChange={(e)=> onChange(e)}
+                value={product.photoUrl ? product.photoUrl : "" }
                 class="form-control"
                 aria-label="Photo"
                 aria-describedby="basic-addon1"
@@ -238,7 +268,10 @@ const Product = () => {
               >
                 Type
               </span>
-              <select class="form-select" aria-label="Default select example">
+              <select class="form-select" aria-label="Default select example"
+                name="type"
+                onChange={(e)=> onChange(e)}
+                value={product.type ? product.type : "" }>
                 <option selected value="sofa">Sofa</option>
                 <option value="bed">Bed</option>
                 <option value="dining">Dining</option>

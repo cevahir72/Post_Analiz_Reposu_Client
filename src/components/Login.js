@@ -1,22 +1,35 @@
 import React, { useState } from "react";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Log_in } from "../services/authSlice";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+});
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {loading} = useSelector((state)=> state.auth)
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const onChange = (e) => {
+    setUserInfo({
+        ...userInfo,
+        [e.target.name]: e.target.value,
+    });
+};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(`Email: ${email}, Password: ${password}`);
-  };
+   // Handlers
+   const loginUser = () => {
+    dispatch(Log_in({ userInfo, navigate }));
+};
+
+  const loginOnEnter = (event) => {
+    if (event.key === "Enter") {
+        loginUser()
+    }
+}
 
   return (
     <div className="vh-100 mx-4">
@@ -27,7 +40,7 @@ const Login = () => {
             className="img-fluid" alt="Sample"/>
         </div>
         <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-          <form>
+          <form onSubmit={loginUser}>
             <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
               <p className="lead fw-normal mb-0 me-3">Sign in with</p>
               <button type="button" className="btn btn-primary btn-floating mx-1">
@@ -51,15 +64,22 @@ const Login = () => {
             <div className="form-outline mb-4">
               <input type="email" id="form3Example3" className="form-control form-control-lg"
                 placeholder="Enter a valid email address" 
-                onChange={handleEmailChange}/>
+                name="email"
+                autoComplete="email"
+                value={userInfo.email}
+                onChange={onChange}/>
               <label className="form-label" for="form3Example3">Email address</label>
             </div>
   
             {/* <!-- Password input --> */}
             <div className="form-outline mb-3">
               <input type="password" id="form3Example4" className="form-control form-control-lg"
+                name="password"
+                onKeyDown={loginOnEnter}
                 placeholder="Enter password" 
-                onClick={handlePasswordChange}/>
+                autoComplete='password'
+                value={userInfo.password}
+                onChange={onChange}/>
               <label className="form-label" for="form3Example4">Password</label>
             </div>
   
@@ -75,11 +95,11 @@ const Login = () => {
             </div>
   
             <div className="text-center text-lg-start mt-4 pt-2">
-              <button type="button" className="btn  btn-lg"
+              <button type="submit" className="btn btn-lg w-100"
                 style={{background:"#CD9B4F",color:"whitesmoke"}}
-                onClick={handleSubmit}>Login</button>
+                >Login</button>
               <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/register"
-                  className="link-danger">Register</a></p>
+                  className="link-danger">{loading ? "Loading" : "Register"} </a></p>
             </div>
   
           </form>

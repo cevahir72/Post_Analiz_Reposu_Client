@@ -12,8 +12,6 @@ const AppContent = () => {
 
   const location = useLocation().pathname
 
-  console.log(location.split("/")[1])
-
   if(location.split("/")[1] === "financing"){
     return  <Financing/>
   }else if (location.split("/")[1] === "product"){
