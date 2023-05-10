@@ -1,79 +1,133 @@
-import React from 'react'
+import React from "react";
+import { Form, Button } from "react-bootstrap";
+import { useFormik } from "formik";
+import { useSelector, useDispatch } from "react-redux";
+import { SignIn } from "../services/authSlice";
+import * as yup from "yup";
+// import auth from "../server/firebase";
+
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const {loading} = useSelector((state)=> state.auth)
+  //* handles
+  const handleRegister = (values)=>{
+      dispatch(SignIn(values))
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      email: "",
+      password: "",
+      password2: "",
+    },
+    validationSchema: yup.object().shape({
+      username: yup
+        .string()
+        .min(3, "Too short!")
+        .max(15, "Too long!")
+        .required("Name is required"),
+      email: yup
+        .string()
+        .email("Email is invalid")
+        .required("Email is required"),
+      password: yup
+        .string()
+        .min(8, "Password must be 8 characters long")
+        .matches(/[0-9]/, "Password requires a number")
+        .matches(/[a-z]/, "Password requires a lowercase letter")
+        .matches(/[A-Z]/, "Password requires an uppercase letter")
+        .matches(/[^\w]/, "Password requires a symbol"),
+      password2: yup
+        .string()
+        .oneOf([yup.ref("password"), null], "Password must match")
+        .required("Confirm password is required"),
+    }),
+    onSubmit:  (values) => {
+      handleRegister(values)
+    },
+  });
+
   return (
-    <section class="vh-100" >
-  <div class="container h-100">
-    <div class="row d-flex justify-content-center align-items-start h-100">
-      <div class="col-lg-12 col-xl-11">
-        <div class="card text-black" style={{borderRadius: "25px"}}>
-          <div class="card-body p-md-5">
-            <div class="row justify-content-center">
-              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+    <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "87vh" }} >
+      
+      <div className="row " style={{width:"500px", height:"600px"}}>
+        <div className=" col-md-12 col-sm-8" style={{border:"1px solid #ddd", borderRadius:"10px", padding:"20px 30px"}}>
+        <h2 className="mt-3" style={{ textAlign:"center" }}>Register</h2>
+      <Form onSubmit={formik.handleSubmit}>
+        <Form.Group style={{marginTop:"20px"}} controlId="username">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter username"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={formik.touched.username && !!formik.errors.username}
+          />
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.username}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+        <Form.Group controlId="email" style={{marginTop:"20px"}}>
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={formik.touched.email && !!formik.errors.email}
+          />
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.email}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-                <form class="mx-1 mx-md-4">
+        <Form.Group controlId="password" style={{marginTop:"20px"}}>
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Enter password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={formik.touched.password && !!formik.errors.password}
+          />
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.password}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="text" id="form3Example1c" class="form-control" />
-                      <label class="form-label" for="form3Example1c">Your Name</label>
-                    </div>
-                  </div>
-
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="form3Example3c" class="form-control" />
-                      <label class="form-label" for="form3Example3c">Your Email</label>
-                    </div>
-                  </div>
-
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="password" id="form3Example4c" class="form-control" />
-                      <label class="form-label" for="form3Example4c">Password</label>
-                    </div>
-                  </div>
-
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="password" id="form3Example4cd" class="form-control" />
-                      <label class="form-label" for="form3Example4cd">Repeat your password</label>
-                    </div>
-                  </div>
-
-                  <div class="form-check d-flex justify-content-center mb-5">
-                    <label class="form-check-label" for="form2Example3">
-                      Have an account ? <a href="/login">Login</a>
-                    </label>
-                  </div>
-
-                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="button" class="btn btn-primary btn-lg">Register</button>
-                  </div>
-
-                </form>
-
-              </div>
-              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                  class="img-fluid" alt="Sample"/>
-
-              </div>
-            </div>
+        <Form.Group controlId="password2" style={{marginTop:"20px"}}>
+          <Form.Label>Confirm password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Confirm password"
+            value={formik.values.password2}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={formik.touched.password2 && !!formik.errors.password2}
+          />
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.password2}
+          </Form.Control.Feedback>
+        </Form.Group>
+          <div className=" mt-4">
+          <Button style={{background: "#CD9B4F", border:"1px solid #ddd"}} variant="primary" type="submit" className="w-100">
+            {loading ? "Loading" : "Register"} 
+        </Button>
           </div>
-        </div>
+        
+      </Form>
+      <p className="mt-3">Already have an account?</p>
+      <span><a href="/login">Login</a> </span>
+      </div>
       </div>
     </div>
-  </div>
-</section>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
