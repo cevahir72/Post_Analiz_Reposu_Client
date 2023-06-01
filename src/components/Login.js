@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Log_in } from "../services/authSlice";
+
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({
@@ -11,7 +11,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {loading} = useSelector((state)=> state.auth)
+ 
 
   const onChange = (e) => {
     setUserInfo({
@@ -20,16 +20,8 @@ const Login = () => {
     });
 };
 
-   // Handlers
-   const loginUser = () => {
-    dispatch(Log_in({ userInfo, navigate }));
-};
 
-  const loginOnEnter = (event) => {
-    if (event.key === "Enter") {
-        loginUser()
-    }
-}
+
 
   return (
     <div className="vh-100 mx-4">
@@ -40,7 +32,7 @@ const Login = () => {
             className="img-fluid" alt="Sample"/>
         </div>
         <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-          <form onSubmit={loginUser}>
+          <form onSubmit={()=>console.log("login")}>
             <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
               <p className="lead fw-normal mb-0 me-3">Sign in with</p>
               <button type="button" className="btn btn-primary btn-floating mx-1">
@@ -75,7 +67,7 @@ const Login = () => {
             <div className="form-outline mb-3">
               <input type="password" id="form3Example4" className="form-control form-control-lg"
                 name="password"
-                onKeyDown={loginOnEnter}
+                // onKeyDown={loginOnEnter}
                 placeholder="Enter password" 
                 autoComplete='password'
                 value={userInfo.password}
@@ -99,7 +91,7 @@ const Login = () => {
                 style={{background:"#CD9B4F",color:"whitesmoke"}}
                 >Login</button>
               <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/register"
-                  className="link-danger">{loading ? "Loading" : "Register"} </a></p>
+                  className="link-danger">{ "Register"} </a></p>
             </div>
   
           </form>

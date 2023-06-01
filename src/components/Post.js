@@ -1,125 +1,140 @@
-import React, { useState } from 'react';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import DataTable from 'react-data-table-component';
+import React, { useEffect, useState } from "react";
+import DataTable from "react-data-table-component";
+import { useDispatch, useSelector } from "react-redux";
+import PostModal from "./PostModal";
+import {
+  getAllPosts,
+  deletePost,
+  clearPosts,
+  setPost,
+} from "../services/postSlice";
+import Spinner from "react-bootstrap/Spinner";
 
-const mockPost = [
-  {
-    id:1,
-    date:"28/01/2023",
-    location:"Santa Ana",
-    zip:"92705",
-    user: "Mevlüt",
-    count: 30,
-    customerReturns: 3,
-    sale: false
-  },
-  {
-    id:2,
-    date:"11/02/2023",
-    location:"Los Angeles",
-    zip:"90255",
-    user: "Betül",
-    count: 20,
-    customerReturns: 5,
-    sale: true
-  },
-  {
-    id:3,
-    date:"14/02/2023",
-    location:"San Diego",
-    zip:"92101",
-    user: "Rabia",
-    count: 10,
-    customerReturns: 2,
-    sale: false
-  },
-  {
-    id:4,
-    date:"18/02/2023",
-    location:"Riverside",
-    zip:"92501",
-    user: "Melek",
-    count: 40,
-    customerReturns: 4,
-    sale: true
-  }
-]
-
-const columns = [
-  {
-      name: 'Date',
-      selector: row => row.date,
-      
-  },
-  {
-      name: 'Location',
-      selector: row => row.location,
-      
-  },
-  {
-      name: 'Zip',
-      selector: row => row.zip,
-      
-  },
-  {
-    name: 'User',
-    selector: row => row.user,
-    
-},
-{
-  name: 'Count',
-  selector: row => row.count,
- 
-},
-{
-  name: 'Customer Returns',
-  selector: row => row.customerReturns,
-  
-},
-{
-  name: 'Sale',
-  selector: row => row.sale ? <i class="fa-solid fa-plus"></i> : <i class="fa-solid fa-minus"></i> ,
-  
-},
-];
 
 const Post = () => {
-
   const [show, setShow] = useState(false);
+  const [filterText, setFilterText] = useState("");
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  //redux
+  const dispatch = useDispatch();
+  const { posts, deleteLoading } = useSelector((state) => state.post);
 
   //handles
-  const handleSave = ()=> {
-    //redux ta fonk kurulacak
-    console.log("handle-save--post")
-}
+  const handleShow = () => setShow(true);
+
+  const handleUpdate = (item) => {
+    dispatch(setPost(item));
+    setShow(true);
+  };
+
+  const filterChange = (e) => {
+    setFilterText(e.target.value);
+  };
+
+  const columns = [
+    {
+      name: "Date",
+      selector: (row) => row.date,
+      grow: 2,
+    },
+    {
+      name: "Location",
+      selector: (row) => row.location,
+      grow: 1,
+    },
+    {
+      name: "Zip",
+      selector: (row) => row.zip,
+      grow: 1,
+    },
+    {
+      name: "User",
+      selector: (row) => row.username,
+      grow: 1,
+    },
+    {
+      name: "Count",
+      selector: (row) => row.count,
+      omit: true,
+    },
+    {
+      name: "Customer Returns",
+      selector: (row) => row.customerReturns,
+      grow: 1,
+    },
+    {
+      name: "Sale",
+      selector: (row) =>
+        row.sale ? (
+          <i class="fa-solid fa-plus"></i>
+        ) : (
+          <i class="fa-solid fa-minus"></i>
+        ),
+      grow: 1,
+    },
+    {
+      name: "Actions",
+      selector: (row) => {
+        return (
+          <>
+            <button
+              onClick={() => dispatch(deletePost(row))}
+              type="button"
+              size="sm"
+              className="btn btn-outline-danger mr-2"
+            >
+              {!deleteLoading ? (
+                <i className="fa-solid fa-trash"></i>
+              ) : (
+                <Spinner variant="danger" animation="border" size="sm" />
+              )}
+            </button>
+
+            <button
+              size="sm"
+              onClick={() => handleUpdate(row)}
+              className="btn btn-outline-primary mr-2"
+            >
+              <i className="fa-solid fa-pen"></i>
+            </button>
+          </>
+        );
+      },
+      grow: 2,
+    },
+  ];
 
   const customStyles = {
     rows: {
       style: {
         border: "1px solid #CD9B4F",
-        fontSize: "14px"
-      }
+        fontSize: "14px",
+      },
     },
     headCells: {
-      style : {
+      style: {
         background: "#e8b76d",
         color: "white",
-        fontSize: "14px"
-      }
-    }
-  }
- 
+        fontSize: "14px",
+      },
+    },
+  };
+  console.log(posts)
+  //Effects
+  useEffect(() => {
+    dispatch(getAllPosts({ filterText: filterText }));
+    return () => {
+      dispatch(clearPosts());
+    };
+  }, [dispatch, filterText]);
+
   return (
     <div
       className="container justify-content-center "
       style={{ height: "87vh" }}
     >
-      <div className="row mb-3">
-        <div className=" col-md-8 ">
+      <div className="row mb-3 pr-4">
+        <div className=" col-12">
           <div className="input-group mb-3">
             <input
               type="text"
@@ -127,6 +142,7 @@ const Post = () => {
               placeholder="Search post...."
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
+              onChange={filterChange}
               style={{
                 height: "48px",
                 border: "1px solid #CD9B4F",
@@ -137,15 +153,6 @@ const Post = () => {
                 },
               }}
             />
-            <div className="input-group-append">
-              <button
-                className="btn btn-outline-warning btn-lg"
-                type="button"
-                style={{ borderRadius: "0px", "&:hover": { color: "white" } }}
-              >
-                <i className="fa fa-search"></i>
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -163,144 +170,14 @@ const Post = () => {
         <DataTable
           title="Post List"
           columns={columns}
-          data={mockPost}
+          data={posts}
           pagination
           striped
           responsive
           customStyles={customStyles}
         />
       </div>
-      {show && (
-        <Offcanvas
-          show={show}
-          onHide={handleClose}
-          placement="end"
-          style={{ width: "750px" }}
-        >
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Add Post</Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <div class="input-group mb-3">
-            <span
-                style={{ width: "90px" }}
-                class="input-group-text"
-                id="basic-addon1"
-              >
-                User
-              </span>
-              <select class="form-select" aria-label="Default select example">
-                <option selected value="1">Mevlüt</option>
-                <option value="2">Betül</option>
-                <option value="3">Rabia</option>
-                <option value="4">Melek</option>
-              </select>
-            </div>
-            <div class="input-group mb-3">
-              <span
-                style={{ width: "90px" }}
-                class="input-group-text"
-                id="basic-addon1"
-              >
-                Date
-              </span>
-              <input
-                type="text"
-                class="form-control"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <span
-                style={{ width: "90px" }}
-                class="input-group-text"
-                id="basic-addon1"
-              >
-                Location
-              </span>
-              <input
-                type="text"
-                class="form-control"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <span
-                style={{ width: "90px" }}
-                class="input-group-text"
-                id="basic-addon1"
-              >
-                Zip
-              </span>
-              <input
-                type="text"
-                class="form-control"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <span
-                style={{ width: "90px" }}
-                class="input-group-text"
-                id="basic-addon1"
-              >
-                Count
-              </span>
-              <input
-                type="text"
-                class="form-control"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <span
-                style={{ width: "90px" }}
-                class="input-group-text"
-                id="basic-addon1"
-              >
-                C. Returns
-              </span>
-              <input
-                type="text"
-                class="form-control"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
-              />
-              <label class="form-check-label" for="flexCheckDefault">
-                Sale
-              </label>
-            </div>
-            <hr />
-            <div style={{ display: "flex", justifyContent: "end" }}>
-              <button onClick={handleClose} className="btn btn-outline-danger">Cancel</button>
-              <button
-                type="submit"
-                className="btn btn-warning"
-                style={{
-                  background: "#CD9B4F",
-                  color: "white",
-                  marginLeft: "10px",
-                }}
-                onClick={() => handleSave}
-              >
-                Save
-              </button>
-            </div>
-          </Offcanvas.Body>
-        </Offcanvas>
-      )}
+      {show && <PostModal show={show} setShow={setShow} />}
     </div>
   );
 };

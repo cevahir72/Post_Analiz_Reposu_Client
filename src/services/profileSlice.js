@@ -16,13 +16,9 @@ const profileSlice = createSlice({
     clearSales: (state) => {
       state.profile = {};
     }    
-//    extraReducers: {
-//     [Register.pending]: (state, action) => {
-//       state.loading = true;
-//     },
-    
-//   }
-}
+},
+   extraReducers: {    
+  }
 });
 
 export const { clearAuth, setUser,onChangeRegister } = profileSlice.actions;

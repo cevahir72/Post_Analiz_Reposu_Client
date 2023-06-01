@@ -2,18 +2,13 @@ import React from "react";
 import { Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
-import { SignIn } from "../services/authSlice";
+
 import * as yup from "yup";
 // import auth from "../server/firebase";
 
 
 const Register = () => {
-  const dispatch = useDispatch();
-  const {loading} = useSelector((state)=> state.auth)
-  //* handles
-  const handleRegister = (values)=>{
-      dispatch(SignIn(values))
-  }
+
 
   const formik = useFormik({
     initialValues: {
@@ -45,7 +40,7 @@ const Register = () => {
         .required("Confirm password is required"),
     }),
     onSubmit:  (values) => {
-      handleRegister(values)
+      
     },
   });
 
@@ -117,7 +112,7 @@ const Register = () => {
         </Form.Group>
           <div className=" mt-4">
           <Button style={{background: "#CD9B4F", border:"1px solid #ddd"}} variant="primary" type="submit" className="w-100">
-            {loading ? "Loading" : "Register"} 
+            {"Register"} 
         </Button>
           </div>
         

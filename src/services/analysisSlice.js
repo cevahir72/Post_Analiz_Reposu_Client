@@ -15,14 +15,10 @@ const analysisSlice = createSlice({
   reducers: {
     clearSales: (state) => {
       state.sales = [];
-    }    
-//    extraReducers: {
-//     [Register.pending]: (state, action) => {
-//       state.loading = true;
-//     },
-    
-//   }
-}
+    } 
+},
+   extraReducers: {
+  }
 });
 
 export const { clearAuth, setUser,onChangeRegister } = analysisSlice.actions;

@@ -16,13 +16,10 @@ const customerSlice = createSlice({
     clearCustomer: (state) => {
       state.customers = [];
     }    
-//    extraReducers: {
-//     [Register.pending]: (state, action) => {
-//       state.loading = true;
-//     },
+},
+   extraReducers: {
     
-//   }
-}
+  }
 });
 
 export const { clearAuth, setUser,onChangeRegister } = customerSlice.actions;
