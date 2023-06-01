@@ -16,12 +16,6 @@ const financingSlice = createSlice({
     clearFinancing: (state) => {
       state.financing = [];
     }    
-//    extraReducers: {
-//     [Register.pending]: (state, action) => {
-//       state.loading = true;
-//     },
-    
-//   }
 }
 });
 
