@@ -57,8 +57,12 @@ const Financing = () => {
   return (
     <div
     className="container justify-content-center "
-    style={{ minHeight: "87vh" }}
+    style={{ minHeight: "87vh",fontFamily:"Quicksand" }}
   >
+    <div style={{marginBottom:"3rem"}}>
+        <h4>Financing</h4>
+          <hr/>
+        </div>
     <div className="row mt-4">
       <div className="row d-flex justify-content-center align-items-center h-100">
         <div className="col">

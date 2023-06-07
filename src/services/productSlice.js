@@ -80,7 +80,8 @@ const initialState = {
     product: {},
     deleteLoading: false,
     updateLoading : false,
-    createLoading : false
+    createLoading : false,
+    loading: false
 };
 
 

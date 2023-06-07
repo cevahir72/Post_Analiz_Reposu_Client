@@ -22,7 +22,6 @@ const PostModal = ({show,setShow}) => {
         }
           
       }
-      console.log(post)
     
      const handleClose = () => setShow(false);
     
@@ -159,6 +158,24 @@ const PostModal = ({show,setShow}) => {
                 type="number"
                 class="form-control"
                 aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                style={{ width: "90px" }}
+                class="input-group-text"
+                id="basic-addon1"
+              >
+                Sold Pr.
+              </span>
+              <input
+                name="soldProduct"
+                onChange={(e)=> onChange(e)}
+                value={post.soldProduct ? post.soldProduct : "" }
+                type="text"
+                class="form-control"
+                aria-label="SoldPr"
                 aria-describedby="basic-addon1"
               />
             </div>

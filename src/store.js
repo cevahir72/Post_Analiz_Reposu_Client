@@ -1,7 +1,7 @@
 // Redux store
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './services/authSlice';
-import customerSlice from './services/customerSlice';
+import answerSlice from './services/answerSlice';
 import financingSlice from './services/financingSlice';
 import productSlice from './services/productSlice';
 import analysisSlice from './services/analysisSlice';
@@ -11,7 +11,7 @@ import postSlice from './services/postSlice';
 export const store = configureStore({
     reducer: {
       auth: authSlice,
-      customer: customerSlice,
+      answer: answerSlice,
       financing: financingSlice,
       product :productSlice,
       analysis : analysisSlice,
