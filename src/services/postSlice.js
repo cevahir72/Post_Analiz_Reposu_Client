@@ -63,10 +63,9 @@ export const deletePost = createAsyncThunk(
 export const getAllPosts = createAsyncThunk(
   "post/getAllPosts",
   async (data, thunkAPI) => {
+    const {user} = data;
     try {
-      const resp = await axios.get(
-        `http://localhost:5000/api/posts`
-      );
+      const resp = await axios.get(`http://localhost:5000/api/posts?user=${user}`);
       if (resp.status === 200) {
         return resp.data;
       }
@@ -131,7 +130,7 @@ const postSlice = createSlice({
     },
     [createPost.fulfilled]: (state, action) => {
       state.createLoading = false;
-      state.posts = [...state.posts,action.payload]
+      state.posts = [...state.posts, action.payload];
     },
     [updatePost.pending]: (state, action) => {
       state.updateLoading = true;
@@ -141,8 +140,10 @@ const postSlice = createSlice({
     },
     [updatePost.fulfilled]: (state, action) => {
       state.updateLoading = false;
-      let updatedPosts = state.posts.filter(item=>item._id !== action.payload._id )
-      state.posts = [...updatedPosts, action.payload] 
+      let updatedPosts = state.posts.filter(
+        (item) => item._id !== action.payload._id
+      );
+      state.posts = [...updatedPosts, action.payload];
     },
     [deletePost.pending]: (state, action) => {
       state.deleteLoading = true;
@@ -152,7 +153,9 @@ const postSlice = createSlice({
     },
     [deletePost.fulfilled]: (state, action) => {
       state.deleteLoading = false;
-      state.posts =  state.posts.filter(item=>item._id !== action.payload._id)
+      state.posts = state.posts.filter(
+        (item) => item._id !== action.payload._id
+      );
     },
     [getAllPosts.pending]: (state, action) => {
       state.loading = true;
@@ -174,11 +177,10 @@ const postSlice = createSlice({
       state.loading = false;
       state.post = action.payload;
     },
-
-
   },
 });
 
-export const { clearPost, onChangePost,clearPosts,setPost } = postSlice.actions;
+export const { clearPost, onChangePost, clearPosts, setPost } =
+  postSlice.actions;
 
 export default postSlice.reducer;

@@ -5,7 +5,7 @@ import Financing from "../../components/Financing";
 import Product from "../../components/Product";
 import Analyze from "../../components/Analyze";
 import Profile from "../../components/Profile";
-import Customer from "../../components/Customer";
+import Answer from "../../components/Answer";
 import Post from "../../components/Post";
 
 const AppContent = () => {
@@ -20,8 +20,8 @@ const AppContent = () => {
     return <Analyze/>
   }else if (location.split("/")[1] === "profile"){
     return <Profile/>
-  }else if (location.split("/")[1] === "customer"){
-    return <Customer/>
+  }else if (location.split("/")[1] === "answer"){
+    return <Answer/>
   }else if (location.split("/")[1] === "post"){
     return <Post/>
   }

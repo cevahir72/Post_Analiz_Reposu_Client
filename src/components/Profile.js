@@ -2,7 +2,12 @@ import React from 'react';
 
 const Profile = () => {
   return (   
-    <div className="container mt-5 mb-5" style={{background:"#eeeeeee",height:"83vh"}}>
+    <div className="container mt-5 mb-5" style={{background:"#eeeeeee",height:"83vh",fontFamily:"Quicksand"}}>
+        <div style={{marginBottom:"3rem"}}>
+        <h4>Profile</h4>
+          <hr/>
+        </div>
+        
     <div className="row no-gutters">
         <div className="col-md-4 col-lg-4"><img style={{width:"100%", height:"100%"}} alt="resim" src="https://media.licdn.com/dms/image/D4D03AQHjB6fbHagzvw/profile-displayphoto-shrink_800_800/0/1679980374190?e=2147483647&v=beta&t=vmbIRtXrdFkqT62m-foOcUlWZgQaC5Rn_DoIrURJ5IY"/></div>
         <div className="col-md-8 col-lg-8">

@@ -13,7 +13,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 const Post = () => {
   const [show, setShow] = useState(false);
-  const [filterText, setFilterText] = useState("");
+  const [user, setUser] = useState("")
 
   //redux
   const dispatch = useDispatch();
@@ -27,9 +27,6 @@ const Post = () => {
     setShow(true);
   };
 
-  const filterChange = (e) => {
-    setFilterText(e.target.value);
-  };
 
   const columns = [
     {
@@ -63,6 +60,11 @@ const Post = () => {
       grow: 1,
     },
     {
+      name: "Sold Product",
+      selector: (row) => row.soldProduct,
+      grow: 1,
+    },
+    {
       name: "Sale",
       selector: (row) =>
         row.sale ? (
@@ -76,7 +78,7 @@ const Post = () => {
       name: "Actions",
       selector: (row) => {
         return (
-          <>
+          <span className="d-flex justify-content-end">
             <button
               onClick={() => dispatch(deletePost(row))}
               type="button"
@@ -97,7 +99,7 @@ const Post = () => {
             >
               <i className="fa-solid fa-pen"></i>
             </button>
-          </>
+          </span>
         );
       },
       grow: 2,
@@ -119,41 +121,37 @@ const Post = () => {
       },
     },
   };
-  console.log(posts)
+
   //Effects
   useEffect(() => {
-    dispatch(getAllPosts({ filterText: filterText }));
+    dispatch(getAllPosts({ user: user}));
     return () => {
       dispatch(clearPosts());
     };
-  }, [dispatch, filterText]);
+  }, [dispatch, user]);
 
   return (
     <div
       className="container justify-content-center "
-      style={{ height: "87vh" }}
+      style={{ height: "87vh" , fontFamily:"Quicksand"}}
     >
+      <div style={{marginBottom:"3rem"}}>
+        <h4>Post</h4>
+          <hr/>
+        </div>
       <div className="row mb-3 pr-4">
-        <div className=" col-12">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control input-text"
-              placeholder="Search post...."
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-              onChange={filterChange}
-              style={{
-                height: "48px",
-                border: "1px solid #CD9B4F",
-                "&:focus": {
-                  boxShadow: "0px 0px 0px",
-                  borderColor: "#f8c146",
-                  outline: "0px",
-                },
-              }}
-            />
-          </div>
+        <div className=" col-md-6">
+          <h6>Select User</h6>
+        <select class="form-select" aria-label="Default select example"
+                onChange={(e)=> setUser(e.target.value)}
+                name="username"
+                value={user ? user : ""}>
+                <option selected>Select</option>
+                <option  value="Mevlüt">Mevlüt</option>
+                <option value="Betül">Betül</option>
+                <option value="Rabia">Rabia</option>
+                <option value="Melek">Melek</option>
+              </select>
         </div>
       </div>
       <div className="mb-3">
