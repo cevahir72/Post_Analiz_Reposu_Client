@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { errorNote, successNote } from "../utils/ToastNotify";
+import { errorNote} from "../utils/ToastNotify";
 import axios from "axios";
-// const apiUrl = process.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export const mostSaledItems = createAsyncThunk(
   "analysis/mostSaledItems",
   async (data, thunkAPI) => {
     try {
-      const resp = await axios.get(`http://localhost:5000/api/analysis`);
+      const resp = await axios.get(`${apiUrl}/analysis`);
       if (resp.status === 200) {
         return resp.data;
       }
@@ -23,7 +23,7 @@ export const mostSaledLocations = createAsyncThunk(
   async (data, thunkAPI) => {
     const { location } = data
     try {
-      const resp = await axios.get(`http://localhost:5000/api/analysis/zip?location=${location ? location : "all"}`);
+      const resp = await axios.get(`${apiUrl}/analysis/zip?location=${location ? location : "all"}`);
       if (resp.status === 200) {
         return resp.data;
       }

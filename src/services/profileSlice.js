@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { errorNote, successNote } from '../utils/ToastNotify';
-import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
+import {  createSlice } from '@reduxjs/toolkit';
+
 
 
 const initialState = {

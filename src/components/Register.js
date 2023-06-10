@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { errorNote, successNote } from '../utils/ToastNotify';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+const apiUrl = process.env.REACT_APP_API_URL;
 
 
 const Register = () => {
@@ -19,7 +19,7 @@ const Register = () => {
     e.preventDefault();
     try {
         const resp = await axios
-        .post(`http://localhost:5000/api/auth/register`,  user )
+        .post(`${apiUrl}/auth/register`,  user )
         if(resp.status ===  200){
           successNote(resp.data.message);
           navigate(`/login`);
