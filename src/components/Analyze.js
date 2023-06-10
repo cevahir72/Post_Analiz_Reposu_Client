@@ -97,6 +97,28 @@ const Analyze = () => {
   
   }, [location])
 
+  const subHeaderComponent = (
+    <div style={{ display:"flex", justifyContent:"end", flexDirection:"row"}}>
+      <button 
+            className="btn btn-outline-danger mr-2"
+            onClick={()=> setLocation("")}
+            style={{height:"48px"}}
+            >Clean</button>{' '}
+        <select class="form-select" aria-label="Default select example"
+                onChange={(e)=> onChange(e)}
+                label="Location"
+                style={{width:"15rem"}}
+                name="location"
+                value={location ? location : ""}>
+                <option selected>Select Location</option>
+                <option  value="Santa Ana">Santa Ana</option>
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="Riverside">Riverside</option>
+                <option value="San Diego">San Diego</option>
+              </select>
+    </div>
+
+  )
   
 
   return (
@@ -109,7 +131,7 @@ const Analyze = () => {
           <hr/>
         </div>
       <div className="row mb-3">
-        <div className="mb-3" style={{border:"1px solid #ddd", borderRadius:"7px",padding:"1rem 1rem"}}>
+        <div className="mb-3 py-4" style={{border:"1px solid #aaa", borderRadius:"7px",background:"#eeee"}}>
           <DataTable
             title="Most Saled Products"
             columns={columns}
@@ -120,19 +142,8 @@ const Analyze = () => {
             customStyles={customStyles}
           />
         </div>
-        <div className="mb-3" style={{border:"1px solid #ddd", borderRadius:"7px",padding:"1rem 1rem"}}>
-        <select class="form-select" aria-label="Default select example"
-                onChange={(e)=> onChange(e)}
-                label="Location"
-                style={{marginTop:"2rem",width:"50%"}}
-                name="location"
-                value={location ? location : ""}>
-                <option selected>Select Location</option>
-                <option  value="Santa Ana">Santa Ana</option>
-                <option value="Los Angeles">Los Angeles</option>
-                <option value="Riverside">Riverside</option>
-                <option value="San Diego">San Diego</option>
-              </select>
+        <div className="mb-3 py-4" style={{border:"1px solid #aaa", borderRadius:"7px",padding:"1rem 1rem"}}>
+        
           <DataTable
             title="Most Saled Zip Codes"
             columns={columns2}
@@ -140,6 +151,8 @@ const Analyze = () => {
             pagination
             striped
             responsive
+            subHeader
+            subHeaderComponent={subHeaderComponent}
             customStyles={customStyles}
           />
         </div>

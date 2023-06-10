@@ -7,6 +7,7 @@ import Analyze from "../../components/Analyze";
 import Profile from "../../components/Profile";
 import Answer from "../../components/Answer";
 import Post from "../../components/Post";
+import Admin from "../../components/Admin";
 
 const AppContent = () => {
 
@@ -24,6 +25,8 @@ const AppContent = () => {
     return <Answer/>
   }else if (location.split("/")[1] === "post"){
     return <Post/>
+  }else if (location.split("/")[1] === "admin"){
+    return <Admin/>
   }
     
 }

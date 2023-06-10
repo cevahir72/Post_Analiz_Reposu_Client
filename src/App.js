@@ -21,7 +21,7 @@ const Home = React.lazy(()=>import("./views/Home"))
 
 function App() {
   return (
-    <>
+    <div style={{background:"#EEEAEA"}}>
        <Router>
           <Routes>
             <Route
@@ -67,7 +67,7 @@ function App() {
           </Routes>
       </Router>
       <ToastContainer/>
-    </>
+    </div>
   );
 }
 

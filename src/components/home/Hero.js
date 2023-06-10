@@ -29,7 +29,7 @@ const Hero = () => {
     </div>
     <section class="section section--light">
         <h2>Ekibimiz</h2>
-        <p>Ekibimiz 4 kişiden oluşmaktadır. Mevlüt, Betül, Rabia ve Merve. Ekibimize satışlarında başarılar dileriz...</p>
+        <p> Ekibimize satışlarında başarılar dileriz...</p>
     </section>
     </div>
     

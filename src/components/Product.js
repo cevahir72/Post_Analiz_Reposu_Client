@@ -53,8 +53,18 @@ const Product = () => {
         <h4>Product</h4>
           <hr/>
         </div>
-      <div className="row my-3 pr-4">
-        <div className=" col-12">
+      <div className="row  pr-4 d-flex justify-content-end">
+      <div style={{width:"15%",display:"flex", justifyContent:"end"}}>
+        <button
+          type="submit"
+          className="btn btn-secondary"
+          onClick={handleShow}
+          style={{ background: "#31375B", color: "white",height:"48px" }}
+        >
+          <i class="fa-solid fa-plus"></i> Add Product
+        </button>
+      </div>
+        <div style={{width:"55%"}}>
           <div className="input-group mb-3">
             <input
               type="text"
@@ -66,7 +76,7 @@ const Product = () => {
               value={filterText}
               style={{
                 height: "48px",
-                border: "1px solid #CD9B4F",
+                border: "1px solid #31375B",
                 "&:focus": {
                   boxShadow: "0px 0px 0px",
                   borderColor: "#f8c146",
@@ -76,19 +86,11 @@ const Product = () => {
             />
           </div>
         </div>
+        
       </div>
-      <div>
-        <button
-          type="submit"
-          className="btn btn-warning"
-          onClick={handleShow}
-          style={{ background: "#CD9B4F", color: "white" }}
-        >
-          <i class="fa-solid fa-plus"></i> Add Product
-        </button>
-      </div>
+      
 
-      <div className="row mt-4">
+      <div className="row mt-2">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col">
             <div className="card">
