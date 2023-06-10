@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { errorNote, successNote } from '../utils/ToastNotify';
 import axios from "axios";
-// const apiUrl = process.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export const createAnswer = createAsyncThunk('answer/createAnswer', async (data, thunkAPI) => {
   const {answer,setShow} = data;
 try {
- const resp = await axios.post(`http://localhost:5000/api/answers` , answer)
+ const resp = await axios.post(`${apiUrl}/answers` , answer)
   if(resp.status === 200) {
    successNote(resp.data.message);
    setShow(false);
@@ -21,7 +21,7 @@ return thunkAPI.rejectWithValue(error.message);
 export const updateAnswer = createAsyncThunk('answer/updateAnswer', async (data, thunkAPI) => {
  const {answer,setShow} = data;
 try {
- const resp = await axios.put(`http://localhost:5000/api/answers/${answer._id}` , answer)
+ const resp = await axios.put(`${apiUrl}/answers/${answer._id}` , answer)
   if(resp.status === 200) {
    successNote(resp.data.message);
    setShow(false);
@@ -36,7 +36,7 @@ return thunkAPI.rejectWithValue(error.message);
 export const deleteAnswer = createAsyncThunk('answer/deleteAnswer', async (data, thunkAPI) => {
 
 try {
- const resp = await axios.delete(`http://localhost:5000/api/answers/${data._id}` )
+ const resp = await axios.delete(`${apiUrl}/answers/${data._id}` )
   if(resp.status === 200) {
    successNote(resp.data.message);
    return resp.data.data;
@@ -50,7 +50,7 @@ return thunkAPI.rejectWithValue(error.message);
 export const getAllAnswers = createAsyncThunk('answer/getAllAnswers', async (data, thunkAPI) => {
 
 try {
- const resp = await axios.get(`http://localhost:5000/api/answers?filterText=${data.filterText}`)
+ const resp = await axios.get(`${apiUrl}/answers?filterText=${data.filterText}`)
   if(resp.status === 200) {
    return resp.data;
   }    

@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { errorNote, successNote } from "../utils/ToastNotify";
 import axios from "axios";
-// const apiUrl = process.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export const createSale = createAsyncThunk(
   "admin/createSale",
   async (data, thunkAPI) => {
     const { sale, setShow } = data;
     try {
-      const resp = await axios.post(`http://localhost:5000/api/admin`, sale);
+      const resp = await axios.post(`${apiUrl}/admin`, sale);
       if (resp.status === 200) {
         successNote(resp.data.message);
         setShow(false);
@@ -27,7 +27,7 @@ export const updateSale = createAsyncThunk(
     const { sale, setShow } = data;
     try {
       const resp = await axios.put(
-        `http://localhost:5000/api/admin/${sale._id}`,
+        `${apiUrl}/admin/${sale._id}`,
         sale
       );
       if (resp.status === 200) {
@@ -47,7 +47,7 @@ export const deleteSale = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const resp = await axios.delete(
-        `http://localhost:5000/api/admin/${data._id}`
+        `${apiUrl}/admin/${data._id}`
       );
       if (resp.status === 200) {
         successNote(resp.data.message);
@@ -65,7 +65,7 @@ export const getAllSales = createAsyncThunk(
   async (data, thunkAPI) => {
     const {user} = data;
     try {
-      const resp = await axios.get(`http://localhost:5000/api/admin?user=${user}`);
+      const resp = await axios.get(`${apiUrl}/admin?user=${user}`);
       if (resp.status === 200) {
         return resp.data;
       }
@@ -81,7 +81,7 @@ export const getAllSalesProfile = createAsyncThunk(
     async (data, thunkAPI) => {
       const {id} = data;
       try {
-        const resp = await axios.get(`http://localhost:5000/api/admin/profile/${id}`);
+        const resp = await axios.get(`${apiUrl}/admin/profile/${id}`);
         if (resp.status === 200) {
             console.log(resp.data)
           return resp.data;
@@ -97,7 +97,7 @@ export const getAllSalesProfile = createAsyncThunk(
     "admin/getAllMyAdminSales",
     async (data, thunkAPI) => {
       try {
-        const resp = await axios.get(`http://localhost:5000/api/admin/mySales/1`);
+        const resp = await axios.get(`${apiUrl}/admin/mySales/1`);
         if (resp.status === 200) {
           return resp.data;
         }
@@ -113,7 +113,7 @@ export const getSale = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const resp = await axios.get(
-        `http://localhost:5000/api/admin/${data._id}`
+        `${apiUrl}/admin/${data._id}`
       );
       if (resp.status === 200) {
         return resp.data;

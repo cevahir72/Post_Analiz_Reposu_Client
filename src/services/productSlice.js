@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { errorNote, successNote } from '../utils/ToastNotify';
 import axios from "axios"
-// const apiUrl = process.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 
 export const createProduct = createAsyncThunk('product/createProduct', async (data, thunkAPI) => {
        const {product,setShow} = data;
   try {
-      const resp = await axios.post(`http://localhost:5000/api/products` , product)
+      const resp = await axios.post(`${apiUrl}/products` , product)
        if(resp.status === 200) {
         successNote(resp.data.message);
         setShow(false);
@@ -22,7 +22,7 @@ export const createProduct = createAsyncThunk('product/createProduct', async (da
 export const updateProduct = createAsyncThunk('product/updateProduct', async (data, thunkAPI) => {
       const {product,setShow} = data;
   try {
-      const resp = await axios.put(`http://localhost:5000/api/products/${product._id}` , product)
+      const resp = await axios.put(`${apiUrl}/products/${product._id}` , product)
        if(resp.status === 200) {
         successNote(resp.data.message);
         setShow(false);
@@ -37,7 +37,7 @@ export const updateProduct = createAsyncThunk('product/updateProduct', async (da
 export const deleteProduct = createAsyncThunk('product/deleteProduct', async (data, thunkAPI) => {
 
   try {
-      const resp = await axios.delete(`http://localhost:5000/api/products/${data._id}` )
+      const resp = await axios.delete(`${apiUrl}/products/${data._id}` )
        if(resp.status === 200) {
         successNote(resp.data.message);
         return resp.data.data;
@@ -51,7 +51,7 @@ export const deleteProduct = createAsyncThunk('product/deleteProduct', async (da
 export const getAllProducts = createAsyncThunk('product/getAllProducts', async (data, thunkAPI) => {
 
   try {
-      const resp = await axios.get(`http://localhost:5000/api/products?filterText=${data.filterText}`)
+      const resp = await axios.get(`${apiUrl}/products?filterText=${data.filterText}`)
        if(resp.status === 200) {
         return resp.data;
        }    
@@ -64,7 +64,7 @@ export const getAllProducts = createAsyncThunk('product/getAllProducts', async (
 export const getProduct = createAsyncThunk('product/getProduct', async (data, thunkAPI) => {
 
   try {
-      const resp = await axios.get(`http://localhost:5000/api/products/${data._id}`)
+      const resp = await axios.get(`${apiUrl}/products/${data._id}`)
        if(resp.status === 200) {
         return resp.data;
        }    

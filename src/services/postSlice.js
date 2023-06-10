@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { errorNote, successNote } from "../utils/ToastNotify";
 import axios from "axios";
-// const apiUrl = process.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export const createPost = createAsyncThunk(
   "post/createPost",
   async (data, thunkAPI) => {
     const { post, setShow } = data;
     try {
-      const resp = await axios.post(`http://localhost:5000/api/posts`, post);
+      const resp = await axios.post(`${apiUrl}/posts`, post);
       if (resp.status === 200) {
         successNote(resp.data.message);
         setShow(false);
@@ -27,7 +27,7 @@ export const updatePost = createAsyncThunk(
     const { post, setShow } = data;
     try {
       const resp = await axios.put(
-        `http://localhost:5000/api/posts/${post._id}`,
+        `${apiUrl}/posts/${post._id}`,
         post
       );
       if (resp.status === 200) {
@@ -47,7 +47,7 @@ export const deletePost = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const resp = await axios.delete(
-        `http://localhost:5000/api/posts/${data._id}`
+        `${apiUrl}/posts/${data._id}`
       );
       if (resp.status === 200) {
         successNote(resp.data.message);
@@ -65,7 +65,7 @@ export const getAllPosts = createAsyncThunk(
   async (data, thunkAPI) => {
     const {user} = data;
     try {
-      const resp = await axios.get(`http://localhost:5000/api/posts?user=${user}`);
+      const resp = await axios.get(`${apiUrl}/posts?user=${user}`);
       if (resp.status === 200) {
         return resp.data;
       }
@@ -81,7 +81,7 @@ export const getPost = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const resp = await axios.get(
-        `http://localhost:5000/api/products/${data._id}`
+        `${apiUrl}/products/${data._id}`
       );
       if (resp.status === 200) {
         return resp.data;

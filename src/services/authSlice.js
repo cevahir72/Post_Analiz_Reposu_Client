@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { errorNote, successNote } from '../utils/ToastNotify';
 import axios from "axios";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const initialState = {
     user: {},
@@ -13,7 +14,7 @@ export const login = createAsyncThunk(
   async (data, thunkAPI) => {
     const { userInfo, navigate } = data;
     try {
-      const resp = await axios.post(`http://localhost:5000/api/auth/login`, userInfo);
+      const resp = await axios.post(`${apiUrl}/auth/login`, userInfo);
       if (resp.status === 200) {
         localStorage.setItem('user', resp.data.data._id);
         successNote(resp.data.message);
@@ -30,7 +31,7 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk('auth/logout', async (data, thunkAPI) => {
   const { navigate } = data;
   await axios
-    .post(`http://localhost:5000/api/auth/logout`, {
+    .post(`${apiUrl}/auth/logout`, {
       username: localStorage.clearItem('user')
     })
     .then(res => {
@@ -50,7 +51,7 @@ export const logout = createAsyncThunk('auth/logout', async (data, thunkAPI) => 
 export const getUser = createAsyncThunk('auth/getUser', async (data, thunkAPI) => {
 
   try {
-      const resp = await axios.get(`http://localhost:5000/api/users/${data}`)
+      const resp = await axios.get(`${apiUrl}/users/${data}`)
        if(resp.status === 200) {
         return resp.data;
        }    
@@ -63,7 +64,7 @@ export const getUser = createAsyncThunk('auth/getUser', async (data, thunkAPI) =
 export const getUsers = createAsyncThunk('auth/getUsers', async (data, thunkAPI) => {
 
   try {
-      const resp = await axios.get(`http://localhost:5000/api/users`)
+      const resp = await axios.get(`${apiUrl}/users`)
        if(resp.status === 200) {
         return resp.data;
        }    
