@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
+import sofa from "../assets/sofa.png"
 
 
 
@@ -12,12 +13,15 @@ const Header = () => {
     <Navbar
       collapseOnSelect
       expand="lg"
-      style={{ background: "#CD9B4F", color: "white" ,marginBottom:"3rem"}}
+      style={{ background: "#31375B", color: "white" ,marginBottom:"3rem"}}
       variant="dark"
     >
       <Container>
         <Navbar.Brand  style={{ color: "white" }} href="/">
-          <b>Furni-Scope</b> 
+          <div style={{display:"flex", flexDirection:"row"}}>
+            <span> <img src={sofa} alt="resim" style={{width:"30px", marginRight:"7px", marginLeft:"10px"}}/> </span>
+            <span><b>Furni-Scope</b>  </span>
+          </div>
         </Navbar.Brand>
       </Container>
     </Navbar>

@@ -8,6 +8,7 @@ import {
   clearPosts,
   setPost,
 } from "../services/postSlice";
+import { getUsers } from '../services/authSlice';
 import Spinner from "react-bootstrap/Spinner";
 
 
@@ -18,6 +19,7 @@ const Post = () => {
   //redux
   const dispatch = useDispatch();
   const { posts, deleteLoading } = useSelector((state) => state.post);
+  const { users} = useSelector((state)=>state.auth)
 
   //handles
   const handleShow = () => setShow(true);
@@ -122,9 +124,36 @@ const Post = () => {
     },
   };
 
+  const subHeaderComponent = (
+    <div style={{ display:"flex", justifyContent:"end", flexDirection:"row"}}>
+        <button 
+        className="btn btn-outline-danger mr-2"
+        onClick={()=> setUser("")}
+        >Clean</button>{' '}
+      <select className="form-select mr-2" aria-label="Default select example"
+            onChange={(e)=> setUser(e.target.value)}
+            style={{minWidth:"10rem"}}
+            name="username"
+            value={user ? user : ""}>
+            <option  selected>Select User</option>
+            {users.map((item, idx)=> (
+                  <option key={idx}  value={item}>{item}</option>
+                ))}
+          </select>
+          <button
+      className="btn btn-secondary"
+      onClick={handleShow}
+      style={{ background: "#31375B", color: "white" }}
+    >
+      <i class="fa-solid fa-plus"></i> Add Post
+    </button>
+    </div>
+  )
+
   //Effects
   useEffect(() => {
     dispatch(getAllPosts({ user: user}));
+    dispatch(getUsers());
     return () => {
       dispatch(clearPosts());
     };
@@ -133,38 +162,13 @@ const Post = () => {
   return (
     <div
       className="container justify-content-center "
-      style={{ height: "87vh" , fontFamily:"Quicksand"}}
+      style={{ height: "87vh" , fontFamily:"Quicksand", borderRadius:"10px", padding:"1rem 1rem"}}
     >
       <div style={{marginBottom:"3rem"}}>
         <h4>Post</h4>
           <hr/>
         </div>
-      <div className="row mb-3 pr-4">
-        <div className=" col-md-6">
-          <h6>Select User</h6>
-        <select class="form-select" aria-label="Default select example"
-                onChange={(e)=> setUser(e.target.value)}
-                name="username"
-                value={user ? user : ""}>
-                <option selected>Select</option>
-                <option  value="Mevlüt">Mevlüt</option>
-                <option value="Betül">Betül</option>
-                <option value="Rabia">Rabia</option>
-                <option value="Melek">Melek</option>
-              </select>
-        </div>
-      </div>
-      <div className="mb-3">
-        <button
-          type="submit"
-          className="btn btn-warning"
-          onClick={handleShow}
-          style={{ background: "#CD9B4F", color: "white" }}
-        >
-          <i class="fa-solid fa-plus"></i> Add Post
-        </button>
-      </div>
-      <div className="row table-responsive">
+      <div className="row table-responsive" style={{ background:"#fcfafa",borderRadius:"10px"}}>
         <DataTable
           title="Post List"
           columns={columns}
@@ -172,6 +176,8 @@ const Post = () => {
           pagination
           striped
           responsive
+          subHeader
+          subHeaderComponent={subHeaderComponent}
           customStyles={customStyles}
         />
       </div>

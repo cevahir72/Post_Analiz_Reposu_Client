@@ -1,43 +1,160 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
+import image from "../assets/profile.png";
+import DataTable from "react-data-table-component";
+import { useSelector, useDispatch } from 'react-redux';
+import { getUser } from '../services/authSlice';
+import {
+    getAllSalesProfile,
+    clearSales,
+  } from "../services/adminSlice";
+import { getEnglishMonth } from '../utils/MonthUtil';
+
 
 const Profile = () => {
+    const dispatch = useDispatch()
+    const {user} = useSelector((state)=> state.auth);
+    const { sales} = useSelector((state) => state.admin);
+    const [totalSale, setTotalSale] = useState(0);
+    const [totalProfileSale, setTotalProfileSale] = useState(0);
+
+    const currentDate = new Date();
+    const options = { month: 'long', locale: 'en-US' };
+    const currentMonth = currentDate.toLocaleString('default', options);
+  
+  const columns = [
+    {
+      name: "Date",
+      selector: (row) => row.date,
+      grow: 2,
+    },
+    {
+      name: "Location",
+      selector: (row) => row.location,
+      grow: 1,
+    },
+    {
+      name: "Zip",
+      selector: (row) => row.zip,
+      grow: 1,
+    },
+    {
+      name: "User",
+      selector: (row) => row.username,
+      grow: 1,
+    },
+    {
+      name: "Price",
+      selector: (row) => "$"+ row.price,
+    },
+    {
+      name: "Percentage",
+      selector: (row) => row.percentage + "%",
+      grow: 1,
+    },
+    {
+      name: "Sold Product",
+      selector: (row) => row.soldProduct,
+      grow: 1,
+    },
+    {
+      name: "Income",
+      selector: (row) =>"$"+ parseFloat((row.price * row.percentage)/100)  ,
+      grow: 1,
+    },
+    {
+        name: "Paid",
+        selector: (row) =>
+          row.isPaid ? (
+            <i class="fa-solid fa-plus"></i>
+          ) : (
+            <i class="fa-solid fa-minus"></i>
+          ),
+        grow: 1,
+      }
+  ];
+
+  const customStyles = {
+    rows: {
+      style: {
+        border: "1px solid #CD9B4F",
+        fontSize: "14px",
+      },
+    },
+    headCells: {
+      style: {
+        background: "#e8b76d",
+        color: "white",
+        fontSize: "14px",
+      },
+    },
+  };
+  useEffect(() => {
+    setTotalSale( 
+      sales.reduce((accumulator, item) => accumulator + item.price, 0)
+      )
+      setTotalProfileSale(
+        sales.reduce((accumulator, item) => accumulator + parseFloat((item.price * item.percentage )/100) , 0).toFixed(2)
+      )
+  }, [sales])
+
+
+  useEffect(() => {
+      const id = localStorage.getItem("user")
+      dispatch(getUser(id))
+      dispatch(getAllSalesProfile({ id: id}));
+      return ()=> {
+        dispatch(clearSales());
+      }
+  }, [dispatch])
+
+  const subHeaderComponent2 = (
+        <div style={{ display:"flex", justifyContent:"end", flexDirection:"row"}}>
+            <button 
+            className="btn btn-outline-success mr-2"
+            disabled
+            ><b>Total Income : {"$"}{totalProfileSale}</b>  </button>{' '}  
+        </div>
+      )
+ 
   return (   
-    <div className="container mt-5 mb-5" style={{background:"#eeeeeee",height:"83vh",fontFamily:"Quicksand"}}>
+    <div className="container mt-5 mb-5" style={{background:"#eeeeeee",height:"87vh",fontFamily:"Quicksand"}}>
         <div style={{marginBottom:"3rem"}}>
         <h4>Profile</h4>
           <hr/>
         </div>
-        
-    <div className="row no-gutters">
-        <div className="col-md-4 col-lg-4"><img style={{width:"100%", height:"100%"}} alt="resim" src="https://media.licdn.com/dms/image/D4D03AQHjB6fbHagzvw/profile-displayphoto-shrink_800_800/0/1679980374190?e=2147483647&v=beta&t=vmbIRtXrdFkqT62m-foOcUlWZgQaC5Rn_DoIrURJ5IY"/></div>
-        <div className="col-md-8 col-lg-8">
-            <div className="d-flex flex-column">
-                <div className="d-flex flex-row justify-content-between align-items-center p-5 bg-dark text-white">
-                    <h3 className="display-5">Mevlüt KELEŞ</h3><i className="fa fa-facebook"></i></div>
-                <div className="p-3 bg-black text-white" style={{background:"#000"}}>
-                    <h6>Satış Personeli</h6>
+        <div className='row mb-3 mx-auto' style={{border: "1px solid #ccc", borderRadius:"10px",minHeight:"35%", background:"white"}}>
+            <div className='col-3 d-flex justify-content-center align-items-center'>
+                <img src={image} alt="profil-resim" style={{width:"50%", height:"50%",borderRadius:"50%",outline:"0.5rem inset #0b4d89", outlineOffset:"0.5rem"}}/>
+            </div>
+            <div className='col-8' style={{display:"flex", flexDirection:"column",justifyContent:"center"}}>
+                 <div className='d-flex  align-items-center'>
+                <div style={{marginRight:"7px",marginTop:"1rem"}}><b>Role:  </b></div>
+                <div style={{marginTop:"1rem"}}> Sales Representative</div>
                 </div>
-                <div className="d-flex flex-row text-white">
-                    <div className="p-4 bg-primary text-center skill-block" style={{width: "30%"}}>
-                        <h4>90%</h4>
-                        <h6>Santa Ana</h6>
-                    </div>
-                    <div className="p-3 bg-success text-center skill-block" style={{width: "30%"}}>
-                        <h4>70%</h4>
-                        <h6>Los Angeles</h6>
-                    </div>
-                    <div className="p-3 bg-warning text-center skill-block" style={{width: "30%"}}>
-                        <h4>80%</h4>
-                        <h6>Riverside</h6>
-                    </div>
-                    <div className="p-3 bg-danger text-center skill-block" style={{width: "30%"}}>
-                        <h4>75%</h4>
-                        <h6>San Diego</h6>
-                    </div>
+                <div className='d-flex  align-items-center'>
+                <div style={{ marginRight:"7px",marginTop:"1rem"}}><b>Username:  </b></div>
+                <div style={{marginTop:"1rem"}}> {user.username}</div>
                 </div>
+                <div className='d-flex  align-items-center'>
+                <div style={{ marginRight:"7px",marginTop:"1rem"}}><b>Monthly Sales:  </b></div>
+                <div style={{marginTop:"1rem"}}> {"$"}{totalSale}</div>
+                </div> 
             </div>
         </div>
-    </div>
+        <div className='row table-responsive mb-3 mx-auto' style={{border: "1px solid #ccc", borderRadius:"10px",minHeight:"35%",background:"white"}}>
+        <DataTable
+          title={`${getEnglishMonth(currentMonth)} Sales`}
+          columns={columns}
+          data={sales}
+          pagination
+          striped
+          responsive
+          subHeader
+          subHeaderComponent={subHeaderComponent2}
+          customStyles={customStyles}
+        />
+        </div>
+    
 </div>
   )
 }

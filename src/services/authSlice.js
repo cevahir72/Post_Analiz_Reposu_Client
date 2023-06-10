@@ -4,6 +4,7 @@ import axios from "axios";
 
 const initialState = {
     user: {},
+    users: [],
     loading: false
 };
 
@@ -14,10 +15,10 @@ export const login = createAsyncThunk(
     try {
       const resp = await axios.post(`http://localhost:5000/api/auth/login`, userInfo);
       if (resp.status === 200) {
-        localStorage.setItem('user', resp.data.username);
+        localStorage.setItem('user', resp.data.data._id);
         successNote(resp.data.message);
         navigate("/post")
-        return resp.data;
+        return resp.data.data;
       }
     } catch (error) {
       errorNote("Error with login.");
@@ -30,7 +31,7 @@ export const logout = createAsyncThunk('auth/logout', async (data, thunkAPI) => 
   const { navigate } = data;
   await axios
     .post(`http://localhost:5000/api/auth/logout`, {
-      username: localStorage.getItem('user')
+      username: localStorage.clearItem('user')
     })
     .then(res => {
       if (res.status === 200) {
@@ -44,6 +45,32 @@ export const logout = createAsyncThunk('auth/logout', async (data, thunkAPI) => 
       localStorage.clear();
       return thunkAPI.rejectWithValue('something went wrong');
     });
+});
+
+export const getUser = createAsyncThunk('auth/getUser', async (data, thunkAPI) => {
+
+  try {
+      const resp = await axios.get(`http://localhost:5000/api/users/${data}`)
+       if(resp.status === 200) {
+        return resp.data;
+       }    
+    } catch (error) {
+    errorNote('Error with get-one-user.');
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const getUsers = createAsyncThunk('auth/getUsers', async (data, thunkAPI) => {
+
+  try {
+      const resp = await axios.get(`http://localhost:5000/api/users`)
+       if(resp.status === 200) {
+        return resp.data;
+       }    
+    } catch (error) {
+    errorNote('Error with get-all-users.');
+    return thunkAPI.rejectWithValue(error.message);
+  }
 });
 
 
@@ -72,9 +99,18 @@ extraReducers: {
     state.loading = false;
     state.user = action.payload;
   },
+  [getUser.fulfilled]: (state, action) => {
+    state.loading = false;
+    state.user = action.payload;
+  },
+  [getUsers.fulfilled]: (state, action) => {
+    state.loading = false;
+    const usernames = action.payload.map(x=>x.username);
+    state.users = usernames;
+  }
 }
 });
 
-export const { clearAuth, setUser,onChangeRegister} = authSlice.actions;
+export const { clearUser, setUser,onChangeRegister} = authSlice.actions;
 
 export default authSlice.reducer;

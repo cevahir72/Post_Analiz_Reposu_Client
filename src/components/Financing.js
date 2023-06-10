@@ -95,8 +95,8 @@ const Financing = () => {
                   <div class="col-sm-3 d-flex justify-content-end  col-md-12 col-lg-12">
                     <button
                       type="submit"
-                      className="btn btn-warning"
-                      style={{ background: "#CD9B4F", color: "white" }}
+                      className="btn btn-secondary"
+                      style={{ background: "#31375B", color: "white" }}
                       onClick={()=> handleCopyClick(item.desc)}
                     >
                       <i class="fa-regular fa-copy"></i> copy

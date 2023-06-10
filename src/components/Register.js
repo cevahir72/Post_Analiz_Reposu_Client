@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import { Form, Button } from "react-bootstrap";
 import { errorNote, successNote } from '../utils/ToastNotify';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -16,17 +15,20 @@ const Register = () => {
 
   const navigate = useNavigate()
 
-  const Submit = async ()=>{
-    await axios
-    .post(`http://localhost:5000/api/auth/register`,  user )
-    .then((result) => {
-        successNote(result.data.message);
-        navigate(`/login`);
-      
-    })
-    .catch((error) => {
-      errorNote(error.response.data.message);
-    });
+  const Submit = async (e)=>{
+    e.preventDefault();
+    try {
+        const resp = await axios
+        .post(`http://localhost:5000/api/auth/register`,  user )
+        if(resp.status ===  200){
+          successNote(resp.data.message);
+          navigate(`/login`);
+        }else {
+          errorNote('An error occurred during registration.');
+        }
+    } catch (error) {
+        errorNote(error.response.data.message);
+    }
   }
 
   // const formik = useFormik({
@@ -59,62 +61,53 @@ const Register = () => {
     <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "85vh",fontFamily:"Quicksand" }} >
       
       <div className="row w-100 d-flex justify-content-center align-items-center">
-        <div className=" col-md-6 col-sm-8" style={{border:"1px solid #ddd", borderRadius:"10px", padding:"20px 30px"}}>
-        <h2 className="mt-3" style={{ textAlign:"center" }}>Register</h2>
-      <Form onSubmit={Submit}>
-        <Form.Group style={{marginTop:"20px"}} controlId="username">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter username"
-            value={user.username}
-            name="username"
-            onChange={(e)=> onChange(e)}
-            isInvalid={!user.username}
+        <div className=" col-md-6 col-sm-8" style={{border:"1px solid #ddd", borderRadius:"10px", padding:"70px 50px",background:"white",boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px", marginBottom:"3rem"}}>
+        <h1 className="mt-3" style={{ textAlign:"center",  }}>Register</h1>
+        <form onSubmit={Submit}>
+        <div style={{width:"100%", height:"2rem", margin:"1rem 0", display:"flex", justifyContent:"center", marginTop:"2rem"}}>
+         
+          <input type="text"
+          name="username"
+          placeholder="Username..."
+           value={user.username} 
+           style={{width:"80%", borderRadius:"10px", border:"1px solid black",paddingInline:"0.5rem", height:"2.1rem"}}
+           onChange={(e) => onChange(e)} />
+        </div>
+        <div style={{width:"100%", height:"2rem", margin:"1rem 0", display:"flex", justifyContent:"center"}}>
+       
+          <input type="password"
+          placeholder="Password..."
+           value={user.password} 
+           style={{width:"80%", borderRadius:"10px", border:"1px solid black",paddingInline:"0.5rem", height:"2.1rem"}}
+           onChange={(e) => onChange(e)}
+           name="password"
+           />
+        </div>
+        <div style={{width:"100%", height:"2rem", margin:"1rem 0", display:"flex", justifyContent:"center"}}>
+         
+          <input type="password" 
+          placeholder="Repeat Password..."
+          value={user.password2} 
+          style={{width:"80%", borderRadius:"10px", border:"1px solid black",paddingInline:"0.5rem", height:"2.1rem"}}
+          onChange={(e) => onChange(e)}
+          name="password2"
           />
-          <Form.Control.Feedback type="invalid">
-            {"Username required!"}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="password" style={{marginTop:"20px"}}>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            placeholder="Enter password"
-            value={user.password}
-            onChange={(e)=> onChange(e)}
-            isInvalid={!user.password}
-          />
-          <Form.Control.Feedback type="invalid">
-            {"Password is required"}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="password2" style={{marginTop:"20px"}}>
-          <Form.Label>Confirm password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm password"
-            name="password2"
-            value={user.password2}
-            onChange={(e)=> onChange(e)}
-            isInvalid={!user.password2}
-          />
-          <Form.Control.Feedback type="invalid">
-            {"Password2 required"}
-          </Form.Control.Feedback>
-        </Form.Group>
-          <div className=" mt-4">
-          <Button style={{background: "#CD9B4F", border:"1px solid #ddd"}} variant="primary" type="submit" className="w-100">
-            {"Register"} 
-        </Button>
+        </div>
+        <div style={{width:"100%", height:"2rem", margin:"1rem 0", display:"flex", justifyContent:"center",marginTop:"2rem"}}>
+            <button 
+            style={{width:"80%", borderRadius:"10px", height:"2.1rem",background: "#31375B", color: "white",border:"1px solid #31375B"}}
+            type="submit">SUBMIT</button>
+        </div>
+        
+      </form>
+        <div style={{width:"100%", height:"2rem", margin:"1rem 0",display:"flex", justifyContent:"center"  }}>
+          <div  style={{width:"80%"}}>
+              <p className="mt-1">Already have an account?</p>
+              <span><a href="/login">Login</a> </span>
+          </div>
           </div>
         
-      </Form>
-      <p className="mt-3">Already have an account?</p>
-      <span><a href="/login">Login</a> </span>
+      
       </div>
       </div>
     </div>

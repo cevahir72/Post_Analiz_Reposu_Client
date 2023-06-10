@@ -1,25 +1,27 @@
 import React, { useEffect } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useDispatch, useSelector } from "react-redux";
-import {clearPost, createPost,onChangePost,updatePost} from "../services/postSlice";
+import {clearSale, createSale,onChangeSale,updateSale} from "../services/adminSlice";
 import Spinner from 'react-bootstrap/Spinner';
 import { getUsers } from "../services/authSlice";
 
-const PostModal = ({show,setShow}) => {
+
+
+const AdminModal = ({show,setShow}) => {
 
     const dispatch = useDispatch()
-    const {post, updateLoading, createLoading} =  useSelector((state)=> state.post)
+    const {sale, updateLoading, createLoading} =  useSelector((state)=> state.admin)
     const { users} = useSelector((state)=>state.auth)
 
       const onChange = (e)=> {
         const { name, value } = e.target;
-        if(e.target.name === "sale") {
-            dispatch(onChangePost({ name, value:e.target.checked }))
-        }else if (e.target.name === "count" || e.target.name === "customerReturns"){
+        if(e.target.name === "paid" || e.target.name === "facebook") {
+            dispatch(onChangeSale({ name, value:e.target.checked }))
+        }else if (e.target.name === "price" || e.target.name === "percentage"){
             let numValue = parseInt(e.target.value)
-            dispatch(onChangePost({ name, value: numValue }))
+            dispatch(onChangeSale({ name, value: numValue }))
         }else{
-            dispatch(onChangePost({ name, value}))
+            dispatch(onChangeSale({ name, value}))
         }
           
       }
@@ -27,18 +29,18 @@ const PostModal = ({show,setShow}) => {
      const handleClose = () => setShow(false);
     
      const handleSave = ()=> {
-        if(post._id ) {
-            dispatch(updatePost({post,setShow}))
+        if(sale._id ) {
+            dispatch(updateSale({sale,setShow}))
         }else {
-            dispatch(createPost({post,setShow}));
+            dispatch(createSale({sale,setShow}));  
         }
         
     }
     
     useEffect(() => {
-     dispatch(getUsers());
+      dispatch(getUsers());
       return () => {
-        dispatch(clearPost())
+        dispatch(clearSale())
       }
     }, [dispatch])
 
@@ -50,12 +52,12 @@ const PostModal = ({show,setShow}) => {
           style={{ width: "750px" }}
         >
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Add Post</Offcanvas.Title>
+            <Offcanvas.Title>Add Sale</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <div class="input-group mb-3">
               <span
-                style={{ width: "90px" }}
+                style={{ width: "100px" }}
                 class="input-group-text"
                 id="basic-addon1"
               >
@@ -64,7 +66,7 @@ const PostModal = ({show,setShow}) => {
               <select class="form-select" aria-label="Default select example"
                 onChange={(e)=> onChange(e)}
                 name="username"
-                value={post.username ? post.username : ""}>
+                value={sale.username ? sale.username : ""}>
                 <option selected>Select User...</option>
                 {users.map((item, idx)=> (
                   <option key={idx}  value={item}>{item}</option>
@@ -73,7 +75,7 @@ const PostModal = ({show,setShow}) => {
             </div>
             <div class="input-group mb-3">
               <span
-                style={{ width: "90px" }}
+                style={{ width: "100px" }}
                 class="input-group-text"
                 id="basic-addon1"
               >
@@ -82,16 +84,16 @@ const PostModal = ({show,setShow}) => {
               <input
               name="date"
               onChange={(e)=> onChange(e)}
-              value={post.date ? post.date : "" }
+              value={sale.date ? sale.date : "" }
                 type="date"
                 class="form-control"
-                aria-label="Username"
+                aria-label="Date"
                 aria-describedby="basic-addon1"
               />
             </div>
             <div class="input-group mb-3">
               <span
-                style={{ width: "90px" }}
+                style={{ width: "100px" }}
                 class="input-group-text"
                 id="basic-addon1"
               >
@@ -100,7 +102,7 @@ const PostModal = ({show,setShow}) => {
               <select class="form-select" aria-label="Default select example"
                 onChange={(e)=> onChange(e)}
                 name="location"
-                value={post.location ? post.location : ""}>
+                value={sale.location ? sale.location : ""}>
                 <option selected>Select Location...</option>
                 <option  value="Santa Ana">Santa Ana</option>
                 <option value="Los Angeles">Los Angeles</option>
@@ -110,7 +112,7 @@ const PostModal = ({show,setShow}) => {
             </div>
             <div class="input-group mb-3">
               <span
-                style={{ width: "90px" }}
+                style={{ width: "100px" }}
                 class="input-group-text"
                 id="basic-addon1"
               >
@@ -119,7 +121,7 @@ const PostModal = ({show,setShow}) => {
               <input
               name="zip"
               onChange={(e)=> onChange(e)}
-              value={post.zip ? post.zip : "" }
+              value={sale.zip ? sale.zip : "" }
                 type="text"
                 class="form-control"
                 aria-label="Username"
@@ -128,16 +130,16 @@ const PostModal = ({show,setShow}) => {
             </div>
             <div class="input-group mb-3">
               <span
-                style={{ width: "90px" }}
+                style={{ width: "100px" }}
                 class="input-group-text"
                 id="basic-addon1"
               >
-                Count
+                Price
               </span>
               <input
-              name="count"
+              name="price"
               onChange={(e)=> onChange(e)}
-              value={post.count ? post.count : 0 }
+              value={sale.price ? sale.price : 0 }
                 type="number"
                 class="form-control"
                 aria-label="Username"
@@ -146,16 +148,16 @@ const PostModal = ({show,setShow}) => {
             </div>
             <div class="input-group mb-3">
               <span
-                style={{ width: "90px" }}
+                style={{ width: "100px" }}
                 class="input-group-text"
                 id="basic-addon1"
               >
-                C. Returns
+                Percentage
               </span>
               <input
-              name="customerReturns"
+              name="percentage"
               onChange={(e)=> onChange(e)}
-              value={post.customerReturns ? post.customerReturns : 0 }
+              value={sale.percentage ? sale.percentage : 0 }
                 type="number"
                 class="form-control"
                 aria-label="Username"
@@ -164,7 +166,7 @@ const PostModal = ({show,setShow}) => {
             </div>
             <div class="input-group mb-3">
               <span
-                style={{ width: "90px" }}
+                style={{ width: "100px" }}
                 class="input-group-text"
                 id="basic-addon1"
               >
@@ -173,7 +175,7 @@ const PostModal = ({show,setShow}) => {
               <input
                 name="soldProduct"
                 onChange={(e)=> onChange(e)}
-                value={post.soldProduct ? post.soldProduct : "" }
+                value={sale.soldProduct ? sale.soldProduct : "" }
                 type="text"
                 class="form-control"
                 aria-label="SoldPr"
@@ -184,19 +186,32 @@ const PostModal = ({show,setShow}) => {
               <input
                 class="form-check-input"
                 type="checkbox"
-                value={post.sale | false}
-                name="sale"
+                value={sale.facebook | false}
+                name="facebook"
                 onChange={(e)=> onChange(e)}
                 id="flexCheckDefault"
               />
               <label class="form-check-label" for="flexCheckDefault">
-                Sale
+                Facebook
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value={sale.isPaid | false}
+                name="isPaid"
+                onChange={(e)=> onChange(e)}
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                isPaid
               </label>
             </div>
             <hr />
             <div style={{ display: "flex", justifyContent: "end" }}>
             <button onClick={handleClose} className="btn btn-outline-danger">Cancel</button>
-              {post._id ? (
+              {sale._id ? (
                   <button
                   type="submit"
                   className="btn btn-warning"
@@ -242,4 +257,4 @@ const PostModal = ({show,setShow}) => {
   )
 }
 
-export default PostModal
+export default AdminModal

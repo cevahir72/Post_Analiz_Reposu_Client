@@ -55,20 +55,30 @@ const Answer = () => {
         <h4>Answers</h4>
           <hr/>
         </div>
-      <div className="row mb-3 pr-4">
-        <div className=" col-12">
-          <div className="input-group mb-3">
+      <div className="row  pr-4 d-flex justify-content-end">
+      <div style={{width:"15%",display:"flex", justifyContent:"end"}}>
+        <button
+          type="submit"
+          className="btn btn-secondary"
+          onClick={handleShow}
+          style={{ background: "#31375B", color: "white",height:"48px"  }}
+        >
+          <i class="fa-solid fa-plus"></i> Add C. Answer
+        </button>
+      </div>
+        <div style={{width:"55%"}}>
+          <div className="input-group mb-1">
             <input
               type="text"
               className="form-control input-text w"
-              placeholder="Search product...."
+              placeholder="Search customer answers...."
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               onChange={filterChange}
               value={filterText}
               style={{
                 height: "48px",
-                border: "1px solid #CD9B4F",
+                border: "1px solid #31375B",
                 "&:focus": {
                   boxShadow: "0px 0px 0px",
                   borderColor: "#f8c146",
@@ -78,16 +88,6 @@ const Answer = () => {
             />
           </div>
         </div>
-      </div>
-      <div>
-        <button
-          type="submit"
-          className="btn btn-warning"
-          onClick={handleShow}
-          style={{ background: "#CD9B4F", color: "white" }}
-        >
-          <i class="fa-solid fa-plus"></i> Add Customer Answer
-        </button>
       </div>
       <div className="row mt-4">
         <div className="row d-flex justify-content-center align-items-center h-100">
@@ -130,7 +130,7 @@ const Answer = () => {
                       <button
                         type="submit"
                         className="btn btn-outline-success"
-                        onClick={() => handleCopyClick(item.dimensions)}
+                        onClick={()=>handleCopyClick(item.answer)}
                       >
                         <i className="fa-regular fa-copy"></i>
                       </button>

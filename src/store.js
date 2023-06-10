@@ -7,6 +7,7 @@ import productSlice from './services/productSlice';
 import analysisSlice from './services/analysisSlice';
 import profileSlice from './services/profileSlice';
 import postSlice from './services/postSlice';
+import adminSlice from './services/adminSlice';
 
 export const store = configureStore({
     reducer: {
@@ -16,7 +17,8 @@ export const store = configureStore({
       product :productSlice,
       analysis : analysisSlice,
       profile : profileSlice,
-      post : postSlice
+      post : postSlice,
+      admin: adminSlice
     }
     
   });
