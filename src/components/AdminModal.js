@@ -52,7 +52,7 @@ const AdminModal = ({show,setShow}) => {
           style={{ width: "750px" }}
         >
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Add Sale</Offcanvas.Title>
+            <Offcanvas.Title>{sale._id ? "Satış Güncelle" : "Satış Ekle"} </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <div class="input-group mb-3">
@@ -61,13 +61,13 @@ const AdminModal = ({show,setShow}) => {
                 class="input-group-text"
                 id="basic-addon1"
               >
-                User
+                Kullanıcı
               </span>
               <select class="form-select" aria-label="Default select example"
                 onChange={(e)=> onChange(e)}
                 name="username"
                 value={sale.username ? sale.username : ""}>
-                <option selected>Select User...</option>
+                <option selected>Kullanıcı seçiniz...</option>
                 {users.map((item, idx)=> (
                   <option key={idx}  value={item}>{item}</option>
                 ))}
@@ -79,7 +79,7 @@ const AdminModal = ({show,setShow}) => {
                 class="input-group-text"
                 id="basic-addon1"
               >
-                Date
+                Tarih
               </span>
               <input
               name="date"
@@ -97,13 +97,13 @@ const AdminModal = ({show,setShow}) => {
                 class="input-group-text"
                 id="basic-addon1"
               >
-                Location
+                Bölge
               </span>
               <select class="form-select" aria-label="Default select example"
                 onChange={(e)=> onChange(e)}
                 name="location"
                 value={sale.location ? sale.location : ""}>
-                <option selected>Select Location...</option>
+                <option selected>Bölge Seçiniz...</option>
                 <option  value="Santa Ana">Santa Ana</option>
                 <option value="Los Angeles">Los Angeles</option>
                 <option value="Riverside">Riverside</option>
@@ -134,7 +134,7 @@ const AdminModal = ({show,setShow}) => {
                 class="input-group-text"
                 id="basic-addon1"
               >
-                Price
+                Fiyat
               </span>
               <input
               name="price"
@@ -152,7 +152,7 @@ const AdminModal = ({show,setShow}) => {
                 class="input-group-text"
                 id="basic-addon1"
               >
-                Percentage
+                Yüzde
               </span>
               <input
               name="percentage"
@@ -170,7 +170,7 @@ const AdminModal = ({show,setShow}) => {
                 class="input-group-text"
                 id="basic-addon1"
               >
-                Sold Pr.
+                Ürün
               </span>
               <input
                 name="soldProduct"
@@ -205,12 +205,12 @@ const AdminModal = ({show,setShow}) => {
                 id="flexCheckDefault"
               />
               <label class="form-check-label" for="flexCheckDefault">
-                isPaid
+                Ödendi
               </label>
             </div>
             <hr />
             <div style={{ display: "flex", justifyContent: "end" }}>
-            <button onClick={handleClose} className="btn btn-outline-danger">Cancel</button>
+            <button onClick={handleClose} className="btn btn-outline-danger">İptal</button>
               {sale._id ? (
                   <button
                   type="submit"
@@ -226,7 +226,7 @@ const AdminModal = ({show,setShow}) => {
                      updateLoading ? (
                         <Spinner variant="light" animation="border" size="sm"/>
                      ) : (
-                      "Update"
+                      "Güncelle"
                      )
                   }
                 </button>
@@ -245,7 +245,7 @@ const AdminModal = ({show,setShow}) => {
                      createLoading ? (
                         <Spinner variant="light" animation="border" size="sm"/>
                      ) : (
-                      "Save"
+                      "Kaydet"
                      )
                   }
                 </button>

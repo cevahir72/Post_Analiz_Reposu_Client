@@ -40,12 +40,12 @@ const AnswerModal = ({show,setShow}) => {
           style={{ width: "750px" }}
         >
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Add Customer Answer</Offcanvas.Title>
+            <Offcanvas.Title>{answer._id ? "Hazır Cevap Güncelle": "Hazır Cevap Ekle"}</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <div class="input-group mb-3">
               <span style={{width:"90px"}} class="input-group-text" id="basic-addon1">
-              Title
+              Başlık
               </span>
               <input
                 type="text"
@@ -58,7 +58,7 @@ const AnswerModal = ({show,setShow}) => {
               />
             </div>
             <div class="input-group">
-              <span style={{width:"90px"}} class="input-group-text">Answer</span>
+              <span style={{width:"90px"}} class="input-group-text">Cevap</span>
               <textarea
                 class="form-control"
                 aria-label="With textarea"
@@ -69,7 +69,7 @@ const AnswerModal = ({show,setShow}) => {
             </div>
             <hr />
             <div style={{display:"flex", justifyContent:"end"}}>
-              <button onClick={handleClose} className="btn btn-outline-danger">Cancel</button>
+              <button onClick={handleClose} className="btn btn-outline-danger">İptal</button>
               {answer._id ? (
                   <button
                   type="submit"
@@ -85,7 +85,7 @@ const AnswerModal = ({show,setShow}) => {
                      updateLoading ? (
                         <Spinner variant="light" animation="border" size="sm"/>
                      ) : (
-                      "Update"
+                      "Güncelle"
                      )
                   }
                 </button>
@@ -104,7 +104,7 @@ const AnswerModal = ({show,setShow}) => {
                      createLoading ? (
                         <Spinner variant="light" animation="border" size="sm"/>
                      ) : (
-                      "Save"
+                      "Kaydet"
                      )
                   }
                 </button>

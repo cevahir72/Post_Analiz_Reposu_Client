@@ -60,7 +60,7 @@ const Financing = () => {
     style={{ minHeight: "87vh",fontFamily:"Quicksand" }}
   >
     <div style={{marginBottom:"3rem"}}>
-        <h4>Financing</h4>
+        <h4>Finansman</h4>
           <hr/>
         </div>
     <div className="row mt-4">
@@ -99,7 +99,7 @@ const Financing = () => {
                       style={{ background: "#31375B", color: "white" }}
                       onClick={()=> handleCopyClick(item.desc)}
                     >
-                      <i class="fa-regular fa-copy"></i> copy
+                      <i class="fa-regular fa-copy"></i> kopyala
                     </button>
                   </div>
                 </div>

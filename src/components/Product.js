@@ -24,7 +24,7 @@ const Product = () => {
   //handles
   const handleCopyClick = (text) => {
     copy(text);
-    successNote(`Copied`);
+    successNote(`Kopyalandı!`);
   };
 
   const handleUpdate = (item) => {
@@ -50,7 +50,7 @@ const Product = () => {
       style={{ minHeight: "87vh",fontFamily:"Quicksand" }}
     >
       <div style={{marginBottom:"3rem"}}>
-        <h4>Product</h4>
+        <h4>Ürün</h4>
           <hr/>
         </div>
       <div className="row  pr-4 d-flex justify-content-end">
@@ -61,7 +61,7 @@ const Product = () => {
           onClick={handleShow}
           style={{ background: "#31375B", color: "white",height:"48px" }}
         >
-          <i class="fa-solid fa-plus"></i> Add Product
+          <i class="fa-solid fa-plus"></i> Ürün Ekle
         </button>
       </div>
         <div style={{width:"55%"}}>
@@ -69,7 +69,7 @@ const Product = () => {
             <input
               type="text"
               className="form-control input-text w"
-              placeholder="Search product...."
+              placeholder="Ürün ara...."
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               onChange={filterChange}
@@ -121,7 +121,7 @@ const Product = () => {
                       <p>{item?.dimensions}</p>
                     </div>
                     <div className="col-sm-2 col-md-2 col-lg-2">
-                      <p>${item?.price}</p>
+                      <b style={{fontSize:"20px"}}>${item?.price}</b>
                     </div>
                     <div className="col-sm-2 col-md-2 col-lg-2">
                       <p>{item?.type}</p>
