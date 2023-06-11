@@ -15,7 +15,7 @@ const Hero = () => {
     </section>
     <div class="background--image2">
         <div class="heading-container">
-            <img src="./images/clarusway.png" alt="furni-scope" class="heading-container__logo"/>
+           <h1 style={{fontSize:"50px"}}>FURNI-SCOPE</h1>
         </div>
     </div>
     <section class="section section--dark">
@@ -24,7 +24,7 @@ const Hero = () => {
     </section>
     <div class="background--image3">
         <div class="heading-container">
-            <span class="heading-container__heading">Analyze Your Sales</span>
+            <span class="heading-container__heading">Analysis</span>
         </div>
     </div>
     <section class="section section--light">
