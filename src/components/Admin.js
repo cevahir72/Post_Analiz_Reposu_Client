@@ -37,9 +37,11 @@ const Admin = () => {
       dispatch(setSale(item));
       setShow(true);
     };
+    
   useEffect(() => {
+     let filteredSales = sales.filter(item=> item.username != "Admin")
     setTotalSale( 
-      sales.reduce((accumulator, item) => accumulator + item.price, 0)
+      filteredSales.reduce((accumulator, item) => accumulator + item.price, 0)
   )
   
   setTotalAdminSale(
