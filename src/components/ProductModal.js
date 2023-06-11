@@ -43,7 +43,7 @@ useEffect(() => {
           style={{ width: "750px" }}
         >
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Add Product</Offcanvas.Title>
+            <Offcanvas.Title>{product._id ? "Ürün Güncelle": "Ürün Ekle"}</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <div class="input-group mb-3">
@@ -52,7 +52,7 @@ useEffect(() => {
                 class="input-group-text"
                 id="basic-addon1"
               >
-                Title
+                Ürün adı
               </span>
               <input
                 type="text"
@@ -70,7 +70,7 @@ useEffect(() => {
                 class="input-group-text"
                 id="basic-addon1"
               >
-                Dimensions
+                Ölçüleri
               </span>
               <input
                 type="text"
@@ -88,7 +88,7 @@ useEffect(() => {
                 class="input-group-text"
                 id="basic-addon1"
               >
-                Price
+                Fiyat
               </span>
               <input
                 type="text"
@@ -106,7 +106,7 @@ useEffect(() => {
                 class="input-group-text"
                 id="basic-addon1"
               >
-                Photo-Url
+                Foto-Url
               </span>
               <input
                 type="text"
@@ -124,13 +124,13 @@ useEffect(() => {
                 class="input-group-text"
                 id="basic-addon1"
               >
-                Type
+                Tip
               </span>
               <select class="form-select" aria-label="Default select example"
                 name="type"
                 onChange={(e)=> onChange(e)}
                 value={product.type ? product.type : "" }>
-                <option selected value="">Select</option>
+                <option selected value="">Seçiniz...</option>
                 <option  value="sofa">Sofa</option>
                 <option value="bed">Bed</option>
                 <option value="dining">Dining</option>
@@ -139,7 +139,7 @@ useEffect(() => {
             </div>
             <hr />
             <div style={{ display: "flex", justifyContent: "end" }}>
-              <button onClick={handleClose} className="btn btn-outline-danger">Cancel</button>
+              <button onClick={handleClose} className="btn btn-outline-danger">İptal</button>
               {product._id ? (
                   <button
                   type="submit"
@@ -155,7 +155,7 @@ useEffect(() => {
                      updateLoading ? (
                         <Spinner variant="light" animation="border" size="sm"/>
                      ) : (
-                      "Update"
+                      "Güncelle"
                      )
                   }
                 </button>
@@ -174,7 +174,7 @@ useEffect(() => {
                      createLoading ? (
                         <Spinner variant="light" animation="border" size="sm"/>
                      ) : (
-                      "Save"
+                      "Kaydet"
                      )
                   }
                 </button>

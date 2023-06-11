@@ -23,12 +23,12 @@ const Profile = () => {
   
   const columns = [
     {
-      name: "Date",
+      name: "Tarih",
       selector: (row) => row.date,
       grow: 2,
     },
     {
-      name: "Location",
+      name: "Bölge",
       selector: (row) => row.location,
       grow: 1,
     },
@@ -38,31 +38,31 @@ const Profile = () => {
       grow: 1,
     },
     {
-      name: "User",
+      name: "Kullanıcı",
       selector: (row) => row.username,
       grow: 1,
     },
     {
-      name: "Price",
+      name: "Fiyat",
       selector: (row) => "$"+ row.price,
     },
     {
-      name: "Percentage",
+      name: "Yüzde",
       selector: (row) => row.percentage + "%",
       grow: 1,
     },
     {
-      name: "Sold Product",
+      name: "Satılan Ürün",
       selector: (row) => row.soldProduct,
       grow: 1,
     },
     {
-      name: "Income",
+      name: "Net Gelir",
       selector: (row) =>"$"+ parseFloat((row.price * row.percentage)/100)  ,
       grow: 1,
     },
     {
-        name: "Paid",
+        name: "Ödendi",
         selector: (row) =>
           row.isPaid ? (
             <i class="fa-solid fa-plus"></i>
@@ -112,14 +112,14 @@ const Profile = () => {
             <button 
             className="btn btn-outline-success mr-2"
             disabled
-            ><b>Total Income : {"$"}{totalProfileSale}</b>  </button>{' '}  
+            ><b>Toplam Gelir : {"$"}{totalProfileSale}</b>  </button>{' '}  
         </div>
       )
  
   return (   
     <div className="container mt-5 mb-5" style={{background:"#eeeeeee",height:"87vh",fontFamily:"Quicksand"}}>
         <div style={{marginBottom:"3rem"}}>
-        <h4>Profile</h4>
+        <h4>Profil</h4>
           <hr/>
         </div>
         <div className='row mb-3 mx-auto' style={{border: "1px solid #ccc", borderRadius:"10px",minHeight:"35%", background:"white"}}>
@@ -128,22 +128,22 @@ const Profile = () => {
             </div>
             <div className='col-8' style={{display:"flex", flexDirection:"column",justifyContent:"center"}}>
                  <div className='d-flex  align-items-center'>
-                <div style={{marginRight:"7px",marginTop:"1rem"}}><b>Role:  </b></div>
-                <div style={{marginTop:"1rem"}}> Sales Representative</div>
+                <div style={{marginRight:"7px",marginTop:"1rem"}}><b>Rol:  </b></div>
+                <div style={{marginTop:"1rem"}}> Satış Temsilcisi</div>
                 </div>
                 <div className='d-flex  align-items-center'>
-                <div style={{ marginRight:"7px",marginTop:"1rem"}}><b>Username:  </b></div>
+                <div style={{ marginRight:"7px",marginTop:"1rem"}}><b>Kullanıcı:  </b></div>
                 <div style={{marginTop:"1rem"}}> {user.username}</div>
                 </div>
                 <div className='d-flex  align-items-center'>
-                <div style={{ marginRight:"7px",marginTop:"1rem"}}><b>Monthly Sales:  </b></div>
+                <div style={{ marginRight:"7px",marginTop:"1rem"}}><b>Aylık Toplam Satış:  </b></div>
                 <div style={{marginTop:"1rem"}}> {"$"}{totalSale}</div>
                 </div> 
             </div>
         </div>
         <div className='row table-responsive mb-3 mx-auto' style={{border: "1px solid #ccc", borderRadius:"10px",minHeight:"35%",background:"white"}}>
         <DataTable
-          title={`${getEnglishMonth(currentMonth)} Sales`}
+          title={`${currentMonth} Satışları`}
           columns={columns}
           data={sales}
           pagination

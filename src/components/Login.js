@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../services/authSlice";
+import Spinner from 'react-bootstrap/Spinner';
 
 const Login = () => {
   //hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [userInfo,setUserInfo] = useState({})
+
+  const {loading} = useSelector((state)=> state.auth)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +35,7 @@ const Login = () => {
           <input
             type="text"
             id="username"
-            placeholder="Username..."
+            placeholder="Kullanıcı..."
             name="username"
             value={userInfo.username}
             onChange={(e) => onChange(e)}
@@ -42,7 +45,7 @@ const Login = () => {
         <div style={{width:"100%", height:"2rem", margin:"1rem 0", display:"flex", justifyContent:"center"}}>
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Parola"
             id="password"
             name="password"
             value={userInfo.password}
@@ -53,12 +56,21 @@ const Login = () => {
         <div style={{width:"100%", height:"2rem", margin:"1rem 0",display:"flex", justifyContent:"center", marginTop:"2rem" }}>
         <button 
             style={{width:"80%", borderRadius:"10px", height:"2.1rem",background: "#31375B", color: "white",border:"1px solid #31375B"}}
-            type="submit">LOGIN</button>
+            type="submit">
+              {
+                loading ? (
+                  <Spinner variant="light" animation="border" size="sm"/>
+                ) : (
+                  "GİRİŞ"
+                )
+              }
+              
+              </button>
         </div>
         <div style={{width:"100%", height:"2rem", margin:"1rem 0", marginTop:"2rem" ,display:"flex", justifyContent:"center" }}>
           <div  style={{width:"80%"}}>
-              <p className="mt-1">Dont you have an account?</p>
-              <span><a href="/register">Register</a> </span>
+              <p className="mt-1">Hesabınız yok mu?</p>
+              <span><a href="/register">Kaydol</a> </span>
           </div>
             
         </div>

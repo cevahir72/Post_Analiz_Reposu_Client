@@ -32,12 +32,12 @@ const Post = () => {
 
   const columns = [
     {
-      name: "Date",
+      name: "Tarih",
       selector: (row) => row.date,
       grow: 2,
     },
     {
-      name: "Location",
+      name: "Bölge",
       selector: (row) => row.location,
       grow: 1,
     },
@@ -47,27 +47,27 @@ const Post = () => {
       grow: 1,
     },
     {
-      name: "User",
+      name: "Kullanıcı",
       selector: (row) => row.username,
       grow: 1,
     },
     {
-      name: "Count",
+      name: "Post Sayısı",
       selector: (row) => row.count,
       omit: true,
     },
     {
-      name: "Customer Returns",
+      name: "Dönüş",
       selector: (row) => row.customerReturns,
       grow: 1,
     },
     {
-      name: "Sold Product",
+      name: "Ürün",
       selector: (row) => row.soldProduct,
       grow: 1,
     },
     {
-      name: "Sale",
+      name: "Satış",
       selector: (row) =>
         row.sale ? (
           <i class="fa-solid fa-plus"></i>
@@ -77,7 +77,7 @@ const Post = () => {
       grow: 1,
     },
     {
-      name: "Actions",
+      name: "İşlemler",
       selector: (row) => {
         return (
           <span className="d-flex justify-content-end">
@@ -129,13 +129,13 @@ const Post = () => {
         <button 
         className="btn btn-outline-danger mr-2"
         onClick={()=> setUser("")}
-        >Clean</button>{' '}
+        >Temizle</button>{' '}
       <select className="form-select mr-2" aria-label="Default select example"
             onChange={(e)=> setUser(e.target.value)}
             style={{minWidth:"10rem"}}
             name="username"
             value={user ? user : ""}>
-            <option  selected>Select User</option>
+            <option  selected>Kullanıcı</option>
             {users.map((item, idx)=> (
                   <option key={idx}  value={item}>{item}</option>
                 ))}
@@ -145,7 +145,7 @@ const Post = () => {
       onClick={handleShow}
       style={{ background: "#31375B", color: "white" }}
     >
-      <i class="fa-solid fa-plus"></i> Add Post
+      <i class="fa-solid fa-plus"></i> Post Ekle
     </button>
     </div>
   )
@@ -170,7 +170,7 @@ const Post = () => {
         </div>
       <div className="row table-responsive" style={{ background:"#fcfafa",borderRadius:"10px"}}>
         <DataTable
-          title="Post List"
+          title="Post Listesi"
           columns={columns}
           data={posts}
           pagination

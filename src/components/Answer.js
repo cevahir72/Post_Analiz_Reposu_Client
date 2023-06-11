@@ -52,7 +52,7 @@ const Answer = () => {
       style={{ minHeight: "87vh",fontFamily:"Quicksand" }}
     >
       <div style={{marginBottom:"3rem"}}>
-        <h4>Answers</h4>
+        <h4>Hazır Cevaplar</h4>
           <hr/>
         </div>
       <div className="row  pr-4 d-flex justify-content-end">
@@ -63,7 +63,7 @@ const Answer = () => {
           onClick={handleShow}
           style={{ background: "#31375B", color: "white",height:"48px"  }}
         >
-          <i class="fa-solid fa-plus"></i> Add C. Answer
+          <i class="fa-solid fa-plus"></i> Ekle
         </button>
       </div>
         <div style={{width:"55%"}}>
@@ -71,7 +71,7 @@ const Answer = () => {
             <input
               type="text"
               className="form-control input-text w"
-              placeholder="Search customer answers...."
+              placeholder="Hazır cevap ara...."
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               onChange={filterChange}

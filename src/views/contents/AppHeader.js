@@ -46,19 +46,19 @@ useEffect(() => {
             Post
           </Nav.Link>
           <Nav.Link style={{ color: "white",marginLeft:"10px" }} href="/financing">
-            Financing
+            Finansman
           </Nav.Link>
           <Nav.Link style={{ color: "white",marginLeft:"10px" }} href="/product">
-            Product
+            Ürün
           </Nav.Link>
           <Nav.Link style={{ color: "white",marginLeft:"10px" }} href="/answer">
-            Answers
+            Cevaplar
           </Nav.Link>
           <Nav.Link style={{ color: "white",marginLeft:"10px" }} href="/analyze">
-            Analysis
+            Analiz
           </Nav.Link>
           <Nav.Link style={{ color: "white",marginLeft:"10px" }} href="/profile">
-            Profile
+            Profil
           </Nav.Link>
           {
               id === '6483b235cfccda99d12a9c01' && (
@@ -69,7 +69,7 @@ useEffect(() => {
           }
         </Nav>
         <div onClick={logout} style={{color:"white", marginTop:"7px",cursor:"pointer",marginRight:"10px",marginLeft:"10px"}}>
-          Logout
+          Çıkış
         </div>
       </Navbar.Collapse>
     </Container>

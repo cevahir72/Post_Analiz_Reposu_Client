@@ -62,7 +62,7 @@ const Register = () => {
       
       <div className="row w-100 d-flex justify-content-center align-items-center">
         <div className=" col-md-6 col-sm-8" style={{border:"1px solid #ddd", borderRadius:"10px", padding:"70px 50px",background:"white",boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px", marginBottom:"3rem"}}>
-        <h1 className="mt-3" style={{ textAlign:"center",  }}>Register</h1>
+        <h1 className="mt-3" style={{ textAlign:"center",  }}>KAYIT</h1>
         <form onSubmit={Submit}>
         <div style={{width:"100%", height:"2rem", margin:"1rem 0", display:"flex", justifyContent:"center", marginTop:"2rem"}}>
          
@@ -96,14 +96,14 @@ const Register = () => {
         <div style={{width:"100%", height:"2rem", margin:"1rem 0", display:"flex", justifyContent:"center",marginTop:"2rem"}}>
             <button 
             style={{width:"80%", borderRadius:"10px", height:"2.1rem",background: "#31375B", color: "white",border:"1px solid #31375B"}}
-            type="submit">SUBMIT</button>
+            type="submit">GİRİŞ</button>
         </div>
         
       </form>
         <div style={{width:"100%", height:"2rem", margin:"1rem 0",display:"flex", justifyContent:"center"  }}>
           <div  style={{width:"80%"}}>
-              <p className="mt-1">Already have an account?</p>
-              <span><a href="/login">Login</a> </span>
+              <p className="mt-1">Hesabınız var mı?</p>
+              <span><a href="/login">Giriş</a> </span>
           </div>
           </div>
         

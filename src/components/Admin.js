@@ -68,12 +68,12 @@ const Admin = () => {
 
     const columns = [
         {
-          name: "Date",
+          name: "Tarih",
           selector: (row) => row.date,
           grow: 2,
         },
         {
-          name: "Location",
+          name: "Bölge",
           selector: (row) => row.location,
           grow: 1,
         },
@@ -84,7 +84,7 @@ const Admin = () => {
           omit: true
         },
         {
-          name: "User",
+          name: "Kullanıcı",
           selector: (row) => row.username,
           grow: 1,
         },
@@ -93,17 +93,17 @@ const Admin = () => {
           selector: (row) =>"$" + row.price,
         },
         {
-          name: "Percentage",
+          name: "Yüzde",
           selector: (row) =>  row.percentage + "%",
           grow: 1,
         },
         {
-          name: "Profit",
+          name: "Net Kar",
           selector: (row) => <b>{"$" + parseFloat((row.percentage * row.price)/ 100)}</b> ,
           grow: 1,
         },
         {
-          name: "Sold Product",
+          name: "Ürün",
           selector: (row) => row.soldProduct,
           grow: 1,
         },
@@ -118,7 +118,7 @@ const Admin = () => {
           grow: 1,
         },
         {
-            name: "Paid",
+            name: "Ödendi",
             selector: (row) =>
               row.isPaid ? (
                 <i class="fa-solid fa-plus"></i>
@@ -128,7 +128,7 @@ const Admin = () => {
             grow: 1,
           },
         {
-          name: "Actions",
+          name: "İşlemler",
           selector: (row) => {
             return (
               <span className="d-flex justify-content-end">
@@ -184,17 +184,17 @@ const Admin = () => {
             <button 
             className="btn btn-outline-success mr-2"
             disabled
-            ><b>Total Sales : {"$"}{totalSale}</b>  </button>{' '}
+            ><b>Toplam Satış : {"$"}{totalSale}</b>  </button>{' '}
             <button 
             className="btn btn-outline-danger mr-2"
             onClick={()=> setUser("")}
-            >Clean</button>{' '}
+            >Temizle</button>{' '}
           <select className="form-select mr-2" aria-label="Default select example"
                 onChange={(e)=> setUser(e.target.value)}
                 style={{minWidth:"10rem"}}
                 name="username"
                 value={user ? user : ""}>
-                <option  selected>Select User</option>
+                <option  selected>Kullanıcı</option>
                 {users.map((item, idx)=> (
                   <option key={idx}  value={item}>{item}</option>
                 ))}
@@ -204,7 +204,7 @@ const Admin = () => {
           onClick={handleShow}
           style={{ background: "#31375B", color: "white" }}
         >
-          <i class="fa-solid fa-plus"></i> Add Sale
+          <i class="fa-solid fa-plus"></i> Satış Ekle
         </button>
         </div>
       );
@@ -214,7 +214,7 @@ const Admin = () => {
             <button 
             className="btn btn-outline-success mr-2"
             disabled
-            ><b>Total Income : {"$"}{totalAdminSale}</b>  </button>{' '}  
+            ><b>Toplam Gelir : {"$"}{totalAdminSale}</b>  </button>{' '}  
         </div>
       )
     
@@ -228,7 +228,7 @@ const Admin = () => {
         <div className='row mb-3 mx-auto' style={{border: "1px solid #ccc", borderRadius:"10px",minHeight:"35%",background:"white"}}>
       <div className="row table-responsive py-3"style={{background:"#eeeeeee",fontFamily:"Quicksand"}} >
         <DataTable
-          title="Sale List"
+          title="Satış Listesi"
           highlightOnHover
           columns={columns}
           data={sales}
@@ -246,7 +246,7 @@ const Admin = () => {
         <div className='row mb-3 mx-auto' style={{border: "1px solid #ccc", borderRadius:"10px",minHeight:"35%",background:"white"}}>
 
         <DataTable
-          title="Admin Sales"
+          title="Admin Satışları"
           highlightOnHover
           columns={columns}
           data={adminSales}

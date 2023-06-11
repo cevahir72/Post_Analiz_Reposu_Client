@@ -33,12 +33,12 @@ const Analyze = () => {
       grow: 1,
     },
     {
-      name: "Product",
+      name: "Ürün",
       selector: (row) => row._id,
       grow: 3,
     },
     {
-      name: "Number of Sale",
+      name: "Satış Sayısı",
       selector: (row) => row.count,
       grow: 3,
     },
@@ -51,12 +51,12 @@ const Analyze = () => {
       grow: 1,
     },
     {
-      name: "Zip Code",
+      name: "Zip Kodu",
       selector: (row) => row._id,
       grow: 3,
     },
     {
-      name: "Number of Sale",
+      name: "Satış Sayısı",
       selector: (row) => row.count,
       grow: 3,
     },
@@ -103,14 +103,14 @@ const Analyze = () => {
             className="btn btn-outline-danger mr-2"
             onClick={()=> setLocation("")}
             style={{height:"48px"}}
-            >Clean</button>{' '}
+            >Temizle</button>{' '}
         <select class="form-select" aria-label="Default select example"
                 onChange={(e)=> onChange(e)}
                 label="Location"
-                style={{width:"15rem"}}
+                style={{width:"50%"}}
                 name="location"
                 value={location ? location : ""}>
-                <option selected>Select Location</option>
+                <option selected>Bölge</option>
                 <option  value="Santa Ana">Santa Ana</option>
                 <option value="Los Angeles">Los Angeles</option>
                 <option value="Riverside">Riverside</option>
@@ -127,13 +127,13 @@ const Analyze = () => {
       style={{ minHeight: "87vh",fontFamily:"Quicksand" }}
     >
       <div style={{marginBottom:"3rem"}}>
-        <h4>Analysis</h4>
+        <h4>Analiz</h4>
           <hr/>
         </div>
       <div className="row mb-3">
         <div className="mb-3 py-4" style={{border:"1px solid #aaa", borderRadius:"7px",background:"#eeee"}}>
           <DataTable
-            title="Most Saled Products"
+            title="En Çok Satan Ürünler"
             columns={columns}
             data={mostSaledProducts}
             pagination
@@ -145,7 +145,7 @@ const Analyze = () => {
         <div className="mb-3 py-4" style={{border:"1px solid #aaa", borderRadius:"7px",padding:"1rem 1rem"}}>
         
           <DataTable
-            title="Most Saled Zip Codes"
+            title="En Çok Satış Yapılan Zip Kodları"
             columns={columns2}
             data={mostSaledZipcodes}
             pagination
