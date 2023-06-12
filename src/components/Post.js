@@ -53,8 +53,15 @@ const Post = () => {
     },
     {
       name: "Post Sayısı",
-      selector: (row) => row.count,
-      omit: true,
+      selector: (row) =>  {
+          if( row.count < 50){
+            return <b style={{color:"red"}}>{row.count}</b>
+          }else if(50 < row.count &&  row.count < 100) {
+            return <b style={{color:"orange"}}>{row.count}</b>
+          } else if(row.count >= 100 ){
+            return <b style={{color:"green"}}>{row.count}</b>
+          }
+      },
     },
     {
       name: "Dönüş",
