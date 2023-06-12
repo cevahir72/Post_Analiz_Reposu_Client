@@ -83,7 +83,6 @@ export const getAllSalesProfile = createAsyncThunk(
       try {
         const resp = await axios.get(`${apiUrl}/admin/profile/${id}`);
         if (resp.status === 200) {
-            console.log(resp.data)
           return resp.data;
         }
       } catch (error) {

@@ -11,11 +11,12 @@ const ConfirmModal = ({visible,setVisible, title, onOK}) => {
 
 
   return (
+    <div>
     <Modal show={visible} onHide={setVisible(false)}>
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Do you confirm this action?</Modal.Body>
+        <Modal.Body>İşlemi onaylıyor musunuz?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={()=> setVisible(false)}>
             Close
@@ -25,6 +26,8 @@ const ConfirmModal = ({visible,setVisible, title, onOK}) => {
           </Button>
         </Modal.Footer>
       </Modal>
+    </div>
+    
   )
 }
 
