@@ -7,7 +7,7 @@ import {
     getAllSalesProfile,
     clearSales,
   } from "../services/adminSlice";
-import { getEnglishMonth } from '../utils/MonthUtil';
+  import ProgressBar from 'react-bootstrap/ProgressBar';
 
 
 const Profile = () => {
@@ -16,6 +16,8 @@ const Profile = () => {
     const { sales} = useSelector((state) => state.admin);
     const [totalSale, setTotalSale] = useState(0);
     const [totalProfileSale, setTotalProfileSale] = useState(0);
+    const [variant, setVariant] = useState("danger");
+    
 
     const currentDate = new Date();
     const options = { month: 'long', locale: 'en-US' };
@@ -88,6 +90,18 @@ const Profile = () => {
       },
     },
   };
+  //handles
+  const changeColor = (x)=> {
+        if(x < 5000){
+          return "danger"
+        }else if (x>5000 && x<10000){
+          return "warning"
+        }else if (x==10000 || x>10000){
+          return "success"
+        }
+  }
+
+
   useEffect(() => {
     setTotalSale( 
       sales.reduce((accumulator, item) => accumulator + item.price, 0)
@@ -123,10 +137,13 @@ const Profile = () => {
           <hr/>
         </div>
         <div className='row mb-3 mx-auto' style={{border: "1px solid #ccc", borderRadius:"10px",minHeight:"35%", background:"white"}}>
-            <div className='col-3 d-flex justify-content-center align-items-center'>
+            <div className="col-12 py-2" style={{height:"5px"}}>
+                <ProgressBar style={{height:"1.5rem"}} variant={`${changeColor(totalSale)}`} now={Math.ceil(totalSale/100)} label={`$${totalSale}`}/>
+            </div>
+            <div className='col-3 col-sm-4 d-flex justify-content-center align-items-center'>
                 <img src={image} alt="profil-resim" style={{width:"50%", height:"50%",borderRadius:"50%",outline:"0.5rem inset #0b4d89", outlineOffset:"0.5rem"}}/>
             </div>
-            <div className='col-8' style={{display:"flex", flexDirection:"column",justifyContent:"center"}}>
+            <div className='col-6' style={{display:"flex", flexDirection:"column",justifyContent:"center"}}>
                  <div className='d-flex  align-items-center'>
                 <div style={{marginRight:"7px",marginTop:"1rem"}}><b>Rol:  </b></div>
                 <div style={{marginTop:"1rem"}}> Satış Temsilcisi</div>
@@ -138,6 +155,10 @@ const Profile = () => {
                 <div className='d-flex  align-items-center'>
                 <div style={{ marginRight:"7px",marginTop:"1rem"}}><b>Aylık Toplam Satış:  </b></div>
                 <div style={{marginTop:"1rem"}}> {"$"}{totalSale}</div>
+                </div> 
+                <div className='d-flex  align-items-center'>
+                <div style={{ marginRight:"7px",marginTop:"1rem"}}><b>Aylık Hedef:  </b></div>
+                <div style={{marginTop:"1rem"}}> $10,000</div>
                 </div> 
             </div>
         </div>
