@@ -193,7 +193,7 @@ const Admin = () => {
             >Temizle</button>{' '}
           <select className="form-select mr-2" aria-label="Default select example"
                 onChange={(e)=> setUser(e.target.value)}
-                style={{minWidth:"10rem"}}
+                style={{minWidth:"6rem"}}
                 name="username"
                 value={user ? user : ""}>
                 <option  selected>Kullanıcı</option>
