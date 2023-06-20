@@ -9,7 +9,8 @@ import {
   setPost,
 } from "../services/postSlice";
 import { getUsers } from '../services/authSlice';
-import Spinner from "react-bootstrap/Spinner";
+import Spinner from "react-bootstrap/Spinner"; 
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
 const Post = () => {
@@ -28,7 +29,6 @@ const Post = () => {
     dispatch(setPost(item));
     setShow(true);
   };
-
 
   const columns = [
     {
@@ -139,7 +139,7 @@ const Post = () => {
         >Temizle</button>{' '}
       <select className="form-select mr-2" aria-label="Default select example"
             onChange={(e)=> setUser(e.target.value)}
-            style={{minWidth:"10rem"}}
+            style={{minWidth:"6rem"}}
             name="username"
             value={user ? user : ""}>
             <option  selected>Kullanıcı</option>
@@ -148,7 +148,7 @@ const Post = () => {
                 ))}
           </select>
           <button
-      className="btn btn-secondary"
+      className="btn btn-secondary "
       onClick={handleShow}
       style={{ background: "#31375B", color: "white" }}
     >
@@ -156,7 +156,7 @@ const Post = () => {
     </button>
     </div>
   )
-
+              console.log(posts)
   //Effects
   useEffect(() => {
     dispatch(getAllPosts({ user: user}));
@@ -169,13 +169,46 @@ const Post = () => {
   return (
     <div
       className="container justify-content-center "
-      style={{ height: "87vh" , fontFamily:"Quicksand", borderRadius:"10px", padding:"1rem 1rem"}}
+      style={{ height: "90%" , fontFamily:"Quicksand", borderRadius:"10px", padding:"1rem 1rem"}}
     >
       <div style={{marginBottom:"3rem"}}>
         <h4>Post</h4>
           <hr/>
         </div>
-      <div className="row table-responsive" style={{ background:"#fcfafa",borderRadius:"10px"}}>
+      <div style={{ background:"#fcfafa",borderRadius:"10px", marginBottom:"1rem", padding:"2rem 0"}}>
+        <ResponsiveContainer aspect={1.5}>
+        <AreaChart
+      data={posts}
+      margin={{
+        top: 0,
+        right: 20,
+        left: 0,
+        bottom: 0
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="date" fontSize={5} fill="#666" dy={1} x={4} y={4} tick={{stroke:"black"}}/>
+      <YAxis tick={{stroke: 'black', fill:"#ddd"}} tickSize={2}/>
+      <Tooltip />
+      <Legend verticalAlign="top" height={50}/>
+      <Area
+        type="monotone"
+        dataKey="customerReturns"
+        stackId="1"
+        stroke="#8884d8"
+        fill="#31375B"
+      />
+      <Area
+        type="monotone"
+        dataKey="count"
+        stackId="1"
+        stroke="#82ca9d"
+        fill="#82ca9d"
+      />
+    </AreaChart>
+    </ResponsiveContainer>
+      </div>
+      <div className="row table-responsive mx-auto" style={{ background:"#fcfafa",borderRadius:"10px"}}>
         <DataTable
           title="Post Listesi"
           columns={columns}
