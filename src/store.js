@@ -8,6 +8,7 @@ import analysisSlice from './services/analysisSlice';
 import profileSlice from './services/profileSlice';
 import postSlice from './services/postSlice';
 import adminSlice from './services/adminSlice';
+import rivalSlice from './services/rivalSlice';
 
 export const store = configureStore({
     reducer: {
@@ -18,7 +19,8 @@ export const store = configureStore({
       analysis : analysisSlice,
       profile : profileSlice,
       post : postSlice,
-      admin: adminSlice
+      admin: adminSlice,
+      rival : rivalSlice
     }
     
   });

@@ -57,6 +57,9 @@ useEffect(() => {
           <Nav.Link style={{ color: "white",marginLeft:"10px" }} href="/analyze">
             Analiz
           </Nav.Link>
+          <Nav.Link style={{ color: "white",marginLeft:"10px" }} href="/rival">
+            Rakip
+          </Nav.Link>
           <Nav.Link style={{ color: "white",marginLeft:"10px" }} href="/profile">
             Profil
           </Nav.Link>
