@@ -8,6 +8,7 @@ import Profile from "../../components/Profile";
 import Answer from "../../components/Answer";
 import Post from "../../components/Post";
 import Admin from "../../components/Admin";
+import Rival from "../../components/Rival";
 
 const AppContent = () => {
 
@@ -27,6 +28,8 @@ const AppContent = () => {
     return <Post/>
   }else if (location.split("/")[1] === "admin"){
     return <Admin/>
+  }else if (location.split("/")[1] === "rival"){
+    return <Rival/>
   }
     
 }
