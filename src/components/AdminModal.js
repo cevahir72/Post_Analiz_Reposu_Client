@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useDispatch, useSelector } from "react-redux";
 import {clearSale, createSale,onChangeSale,updateSale} from "../services/adminSlice";
 import Spinner from 'react-bootstrap/Spinner';
 import { getUsers } from "../services/authSlice";
+import { getAllProducts } from "../services/productSlice";
 
 
 
 const AdminModal = ({show,setShow}) => {
+  const [filterText, setFilterText] = useState("");
 
     const dispatch = useDispatch()
     const {sale, updateLoading, createLoading} =  useSelector((state)=> state.admin)
-    const { users} = useSelector((state)=>state.auth)
+    const { users} = useSelector((state)=>state.auth);
+    const {products}= useSelector((state=> state.product));
 
       const onChange = (e)=> {
         const { name, value } = e.target;
@@ -33,9 +36,12 @@ const AdminModal = ({show,setShow}) => {
             dispatch(updateSale({sale,setShow}))
         }else {
             dispatch(createSale({sale,setShow}));  
-        }
-        
+        }    
     }
+
+     const filterChange = (e) => {
+      setFilterText(e.target.value);
+    };
     
     useEffect(() => {
       dispatch(getUsers());
@@ -43,6 +49,12 @@ const AdminModal = ({show,setShow}) => {
         dispatch(clearSale())
       }
     }, [dispatch])
+
+      useEffect(() => {
+      dispatch(getAllProducts({ filterText: filterText }));
+    
+    }, [filterText])
+
 
   return (
         <Offcanvas
@@ -164,8 +176,8 @@ const AdminModal = ({show,setShow}) => {
                 aria-describedby="basic-addon1"
               />
             </div>
-            <div class="input-group mb-3">
-              <span
+            <div class=" input-group mb-3">
+            <span
                 style={{ width: "100px" }}
                 class="input-group-text"
                 id="basic-addon1"
@@ -173,15 +185,23 @@ const AdminModal = ({show,setShow}) => {
                 Ürün
               </span>
               <input
-                name="soldProduct"
-                onChange={(e)=> onChange(e)}
-                value={sale.soldProduct ? sale.soldProduct : "" }
+                onChange={filterChange}
+                value={filterText }
                 type="text"
                 class="form-control"
                 aria-label="SoldPr"
                 aria-describedby="basic-addon1"
               />
-            </div>
+              <select class="form-select" aria-label="Default select example"
+                onChange={(e)=> onChange(e)}
+                name="soldProduct"
+                value={sale.soldProduct ? sale.soldProduct : ""}>
+                <option selected>Ürün...</option>
+                {products.map((item, idx)=> (
+                  <option key={idx}  value={item.title}>{item.title}</option>
+                ))}
+              </select>
+            </div> 
             <div class="form-check">
               <input
                 class="form-check-input"

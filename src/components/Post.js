@@ -156,7 +156,6 @@ const Post = () => {
     </button>
     </div>
   )
-              console.log(posts)
   //Effects
   useEffect(() => {
     dispatch(getAllPosts({ user: user}));
@@ -176,7 +175,7 @@ const Post = () => {
           <hr/>
         </div>
       <div style={{ background:"#fcfafa",borderRadius:"10px", marginBottom:"1rem", padding:"2rem 0"}}>
-        <ResponsiveContainer aspect={1.5}>
+        <ResponsiveContainer aspect={2}>
         <AreaChart
       data={posts}
       margin={{

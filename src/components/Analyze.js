@@ -124,14 +124,14 @@ const Analyze = () => {
   return (
     <div
       className="container justify-content-center "
-      style={{ minHeight: "87vh",fontFamily:"Quicksand" }}
+      style={{ minHeight: "87vh",fontFamily:"Quicksand",background:"#eeeeeee" }}
     >
       <div style={{marginBottom:"3rem"}}>
         <h4>Analiz</h4>
           <hr/>
         </div>
-      <div className="row mb-3">
-        <div className="mb-3 py-4" style={{border:"1px solid #aaa", borderRadius:"7px",background:"#eeee"}}>
+      <div className="row mb-3" style={{border: "1px solid #ccc", borderRadius:"10px",minHeight:"35%",background:"white"}}>
+        <div className="row table-responsive py-3">
           <DataTable
             title="En Çok Satan Ürünler"
             columns={columns}
