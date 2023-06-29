@@ -1,17 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useDispatch, useSelector } from "react-redux";
 import {clearSale, createSale,onChangeSale,updateSale} from "../services/rivalSlice";
 import Spinner from 'react-bootstrap/Spinner';
+import { getAllProducts } from "../services/productSlice";
 
 
 
 const RivalModal = ({show,setShow}) => {
 
+    const [filterText, setFilterText] = useState("")
+
     const users = ["Betül","Metin","Hacer","Enes Malik","Züleyha","Tuğba","Serhat","Ahmet","Banıçiçek","Zeynep","İmdat","Berrak","Mustafa","Belin","Cihad","Muhammet","Yasin"]
 
     const dispatch = useDispatch()
-    const {sale, updateLoading, createLoading} =  useSelector((state)=> state.rival)
+    const {sale, updateLoading, createLoading} =  useSelector((state)=> state.rival);
+    const {products}= useSelector((state=> state.product));
 
       const onChange = (e)=> {
         const { name, value } = e.target;
@@ -25,15 +29,26 @@ const RivalModal = ({show,setShow}) => {
             dispatch(updateSale({sale,setShow}))
         }else {
             dispatch(createSale({sale,setShow}));  
-        }
-        
+        }     
     }
+
+    const filterChange = (e) => {
+      setFilterText(e.target.value);
+    };
+
     
-    useEffect(() => {
+    useEffect(() => { 
       return () => {
         dispatch(clearSale())
       }
     }, [dispatch])
+
+    useEffect(() => {
+      dispatch(getAllProducts({ filterText: filterText }));
+    
+    }, [filterText])
+    
+
 
   return (
         <Offcanvas
@@ -112,15 +127,14 @@ const RivalModal = ({show,setShow}) => {
               <input
               name="zip"
               onChange={(e)=> onChange(e)}
-              value={sale.zip ? sale.zip : "" }
-                type="text"
+              value={sale.zip ? sale.zip : "" }                type="text"
                 class="form-control"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
               />
             </div>
-            <div class="input-group mb-3">
-              <span
+            <div class=" input-group mb-3">
+            <span
                 style={{ width: "100px" }}
                 class="input-group-text"
                 id="basic-addon1"
@@ -128,14 +142,23 @@ const RivalModal = ({show,setShow}) => {
                 Ürün
               </span>
               <input
-                name="soldProduct"
-                onChange={(e)=> onChange(e)}
-                value={sale.soldProduct ? sale.soldProduct : "" }
+                onChange={filterChange}
+                value={filterText }
                 type="text"
                 class="form-control"
                 aria-label="SoldPr"
                 aria-describedby="basic-addon1"
               />
+              <select class="form-select" aria-label="Default select example"
+                onChange={(e)=> onChange(e)}
+                name="soldProduct"
+                value={sale.soldProduct ? sale.soldProduct : ""}>
+                <option selected>Ürün...</option>
+                {products.map((item, idx)=> (
+                  <option key={idx}  value={item.title}>{item.title}</option>
+                ))}
+              </select>
+
             </div> 
             <hr />
             <div style={{ display: "flex", justifyContent: "end" }}>

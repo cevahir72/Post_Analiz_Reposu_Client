@@ -167,13 +167,13 @@ const Rival = () => {
 
 
   return (
-    <div className="container mt-5 mb-5" style={{background:"#eeeeeee",height:"87vh",fontFamily:"Quicksand"}}>
+    <div className="container justify-content-center" style={{background:"#eeeeeee",height:"100%",fontFamily:"Quicksand"}}>
     <div style={{marginBottom:"3rem"}}>
     <h4>Rakip Analizi</h4>
       <hr/>
     </div>
     <div className='row mb-3 mx-auto' style={{border: "1px solid #ccc", borderRadius:"10px",minHeight:"35%",background:"white"}}>
-  <div className="row table-responsive py-3"style={{background:"#eeeeeee",fontFamily:"Quicksand"}} >
+  <div className="row table-responsive py-3" >
     <DataTable
       title="Rakip Satış Listesi"
       highlightOnHover
@@ -187,7 +187,8 @@ const Rival = () => {
       customStyles={customStyles}
     />
   </div>
-  <div className="mb-3 py-4" style={{border:"1px solid #aaa", borderRadius:"7px",background:"#eeee"}}>
+  <hr  style={{width:"95%"}}/>
+  <div className="mb-3 py-4" >
           <DataTable
             title="En Çok Satan Ürünler"
             columns={columns2}
