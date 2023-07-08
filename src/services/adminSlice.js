@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { errorNote, successNote } from "../utils/ToastNotify";
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_URL;
+const exchangeUrl = process.env.REACT_APP_EXCHANGE_URL;
+const exchangeApiKey = process.env.REACT_APP_EXCHANGE_API_KEY;
 
 export const createSale = createAsyncThunk(
   "admin/createSale",
@@ -124,15 +126,43 @@ export const getSale = createAsyncThunk(
   }
 );
 
+export const exchangeRate = createAsyncThunk(
+  "admin/exchangeRate",
+  async (data, thunkAPI) => {
+    try {
+      const headers = {
+        'apikey': `${exchangeApiKey}`
+      };
+  
+      const response = await axios.get(`${exchangeUrl}`, {
+        params: {
+          to: 'TRY',
+          from: 'USD',
+          amount: 1
+        },
+        headers: headers
+      });
+      if(response.status === 200){
+        return response.data.info.rate;
+      }
+    } catch (error) {
+      errorNote("Error with get-exchangeRate.");
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 
 
 const initialState = {
   sales: [],
   adminSales: [],
   sale: {},
+  dolar: 0 ,
   deleteLoading: false,
   updateLoading: false,
   createLoading: false,
+  dolarLoading : false
 };
 
 const adminSlice = createSlice({
@@ -225,6 +255,16 @@ const adminSlice = createSlice({
       [getAllMyAdminSales.fulfilled]: (state, action) => {
         state.loading = false;
         state.adminSales = action.payload;
+      },
+      [exchangeRate.pending]: (state, action) => {
+        state.dolarLoading = true;
+      },
+      [exchangeRate.rejected]: (state, action) => {
+        state.dolarLoading = false;
+      },
+      [exchangeRate.fulfilled]: (state, action) => {
+        state.dolarLoading = false;
+        state.dolar = action.payload.toFixed(2);
       },
   },
 });
