@@ -3,15 +3,16 @@ import { useDispatch ,useSelector} from 'react-redux';
 import DataTable from "react-data-table-component";
 import { useNavigate } from 'react-router-dom';
 import AdminModal from "./AdminModal";
+import Spinner from 'react-bootstrap/Spinner';
 import {
     getAllSales,
     getAllMyAdminSales,
     deleteSale,
     clearSales,
     setSale,
+    exchangeRate
   } from "../services/adminSlice";
   import { getUsers } from '../services/authSlice';
-  import Spinner from "react-bootstrap/Spinner";
 
 
 
@@ -27,8 +28,9 @@ const Admin = () => {
   
     //redux
     const dispatch = useDispatch();
-    const { sales,adminSales, deleteLoading } = useSelector((state) => state.admin);
-    const { users} = useSelector((state)=>state.auth)
+    const { sales,adminSales, deleteLoading,dolarLoading, dolar } = useSelector((state) => state.admin);
+    const { users} = useSelector((state)=>state.auth);
+
   
     //handles
     const handleShow = () => setShow(true);
@@ -55,6 +57,7 @@ const Admin = () => {
     dispatch(getAllSales({ user: user}));
     dispatch(getAllMyAdminSales());
     dispatch(getUsers());
+    dispatch(exchangeRate());
     return () => {
       dispatch(clearSales());
     };
@@ -216,7 +219,18 @@ const Admin = () => {
             <button 
             className="btn btn-outline-success mr-2"
             disabled
-            ><b>Toplam Gelir : {"$"}{totalAdminSale}</b>  </button>{' '}  
+            ><b>Toplam Gelir : {"$"}{totalAdminSale}</b>  </button>
+            <button 
+            className="btn btn-outline-success mr-2"
+            disabled
+            >
+              {dolarLoading ? (
+                  <Spinner variant="light" animation="border" size="sm"/>
+              ) : (
+                <b>{dolar * totalAdminSale}₺</b>  
+              )}
+              
+              </button>{' '} 
         </div>
       )
     
