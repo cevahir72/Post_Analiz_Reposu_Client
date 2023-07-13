@@ -125,7 +125,7 @@ export const getSale = createAsyncThunk(
     }
   }
 );
-
+//exchange rate
 export const exchangeRate = createAsyncThunk(
   "admin/exchangeRate",
   async (data, thunkAPI) => {
